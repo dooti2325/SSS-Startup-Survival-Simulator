@@ -1,7 +1,7 @@
 # Startup Survival Simulator — User Manual
 
 > **Version 1.1.0** · Last updated: April 2026  
-> Live API: https://dootisaha25-startup-survival-simulator.hf.space
+> Live API: Replace with your own deployed Hugging Face Space URL after publishing
 
 ---
 
@@ -47,21 +47,21 @@ It follows the **OpenEnv** standard: a clean `reset() → step() → state()` lo
 
 ```bash
 # 1. Reset the environment
-curl -X POST "https://dootisaha25-startup-survival-simulator.hf.space/reset" \
+curl -X POST "https://<your-space-subdomain>.hf.space/reset" \
      -H "Content-Type: application/json" -d '{}'
 
 # 2. Take one action
-curl -X POST "https://dootisaha25-startup-survival-simulator.hf.space/step" \
+curl -X POST "https://<your-space-subdomain>.hf.space/step" \
      -H "Content-Type: application/json" -d '{"action": "improve_product"}'
 
 # 3. Check score
-curl "https://dootisaha25-startup-survival-simulator.hf.space/grader?task_name=survival"
+curl "https://<your-space-subdomain>.hf.space/grader?task_name=survival"
 ```
 
 ### Locally
 
 ```bash
-git clone https://github.com/dooti2325/SSS-Startup-Survival-Simulator.git
+git clone https://github.com/DivyankLosse/SSS-Startup-Survival-Simulator.git
 cd SSS-Startup-Survival-Simulator
 pip install -r requirements.txt
 uvicorn api:app --host 0.0.0.0 --port 7860
@@ -72,7 +72,7 @@ uvicorn api:app --host 0.0.0.0 --port 7860
 
 ## 3. Environment Variables
 
-All three variables are **required** to run `Inference.py`. The API server itself runs without them (no LLM calls at server startup).
+All three variables are **required** to run `inference.py`. The API server itself runs without them (no LLM calls at server startup).
 
 | Variable | Purpose | Where to get it |
 |---|---|---|
@@ -110,10 +110,10 @@ export HF_TOKEN="hf_xxxxxxxxxxxxxxxxxxxx"
 
 ## 4. Running the Inference Script
 
-`Inference.py` is the **official evaluator entry point**. It runs 3 tasks end-to-end and prints structured logs.
+`inference.py` is the **official evaluator entry point**. It runs 3 tasks end-to-end and prints structured logs.
 
 ```bash
-python Inference.py
+python inference.py
 ```
 
 ### What it does
@@ -373,7 +373,7 @@ score = clamp(efficiency × 0.7 + user_factor × 0.3)
 
 ## 8. Writing Your Own Agent
 
-You can replace the LLM calls in `Inference.py` with any agent — rule-based, ML model, or another LLM.
+You can replace the LLM calls in `inference.py` with any agent — rule-based, ML model, or another LLM.
 
 ### Minimal agent loop
 
@@ -437,7 +437,7 @@ def rule_agent(state: dict) -> str:
 ```python
 import requests
 
-BASE = "https://dootisaha25-startup-survival-simulator.hf.space"
+BASE = "https://<your-space-subdomain>.hf.space"
 
 # Reset
 state = requests.post(f"{BASE}/reset", json={"seed": 42}).json()
@@ -495,7 +495,7 @@ test_smoke.py::test_grader_and_baseline_are_valid    PASSED
 $env:API_BASE_URL = "https://api-inference.huggingface.co/v1"
 $env:MODEL_NAME   = "mistralai/Mistral-7B-Instruct-v0.3"
 $env:HF_TOKEN     = "hf_xxxx"
-python Inference.py
+python inference.py
 ```
 
 ---
@@ -539,7 +539,7 @@ The Space rebuilds automatically. Build takes ~2 minutes.
 
 ### LLM returns an invalid action
 
-`Inference.py` has a fallback: any response not in the valid action list is automatically replaced with `do_nothing`. The run won't crash.
+`inference.py` has a fallback: any response not in the valid action list is automatically replaced with `do_nothing`. The run won't crash.
 
 ### `POST /step` returns 400
 
@@ -573,4 +573,4 @@ Check that `burn_rate` isn't runaway. If `revenue < burn_rate`, efficiency is < 
 
 ---
 
-*For more information, see the [Swagger docs](https://dootisaha25-startup-survival-simulator.hf.space/docs) or open an issue on [GitHub](https://github.com/dooti2325/SSS-Startup-Survival-Simulator).*
+*For more information, publish your own Space and use its `/docs` URL, or open an issue on [GitHub](https://github.com/DivyankLosse/SSS-Startup-Survival-Simulator).*

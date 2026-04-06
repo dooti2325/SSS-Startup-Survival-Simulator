@@ -13,8 +13,8 @@ license: mit
 
 > An OpenEnv-style AI decision environment where an LLM agent runs an early-stage startup through growth, burn, churn, and market pressure.
 
-**Live Space:** https://dootisaha25-startup-survival-simulator.hf.space  
-**API Docs:** https://dootisaha25-startup-survival-simulator.hf.space/docs
+**Live Space:** https://huggingface.co/spaces/Loosebag/SSS-Startup-Survival-Simulator
+**API Docs:** Publish your own Hugging Face Space first, then use `<your-space-url>/docs`
 
 ---
 
