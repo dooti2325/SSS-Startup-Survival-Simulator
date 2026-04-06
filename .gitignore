@@ -1,0 +1,4 @@
+# Local Python caches and vendored deps.
+__pycache__/
+.pytest_cache/
+.deps/

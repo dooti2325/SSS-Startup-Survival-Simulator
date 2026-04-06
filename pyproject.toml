@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "startup-survival-simulator"
+version = "1.0.0"
+description = "Startup Survival Simulator environment for OpenEnv"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "openai",
+    "openenv-core>=0.2.0",
+    "pydantic",
+    "uvicorn",
+]
+
+[project.optional-dependencies]
+dev = [
+    "httpx",
+    "pytest",
+    "pyyaml",
+]
+
+[project.scripts]
+server = "server.app:main"
+
+[tool.setuptools]
+include-package-data = true
+packages = ["server"]

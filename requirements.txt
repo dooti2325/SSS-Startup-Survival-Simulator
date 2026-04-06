@@ -1,0 +1,11 @@
+# Runtime API dependencies.
+fastapi
+uvicorn
+pydantic
+
+# Local testing and metadata helpers.
+httpx
+pytest
+pyyaml
+
+openai

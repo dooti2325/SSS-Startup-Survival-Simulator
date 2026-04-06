@@ -1,0 +1,47 @@
+name: startup-survival-env
+version: "1.0.0"
+description: Real-world startup operations environment with OpenEnv-style step/reset/state APIs.
+
+# Public action names accepted by POST /step.
+actions:
+  - increase_marketing
+  - hire_engineer
+  - improve_product
+  - reduce_costs
+  - pivot_market
+  - raise_funding
+  - do_nothing
+
+observations:
+  cash: float
+  users: int
+  revenue: float
+  growth_rate: float
+  burn_rate: float
+  churn_rate: float
+  product_quality: float
+  market_demand: float
+  morale: float
+  time_step: int
+
+tasks:
+  - id: survival
+    difficulty: easy
+    description: Survive at least 30 steps without going bankrupt.
+  - id: growth
+    difficulty: medium
+    description: Reach at least 1000 users sustainably.
+  - id: scaling
+    difficulty: hard
+    description: Maximize scaling efficiency using revenue and users relative to burn.
+
+api:
+  endpoints:
+    # Root stays simple so a health check can confirm the app is up.
+    root: /
+    reset: /reset
+    step: /step
+    state: /state
+    tasks: /tasks
+    grader: /grader
+    baseline: /baseline

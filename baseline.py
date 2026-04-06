@@ -1,0 +1,62 @@
+"""Deterministic baseline agent for the Startup Survival Simulator."""
+
+from env import StartupEnv
+from grader import grade
+
+
+def choose_action(task_name: str, state: dict) -> str:
+    """Return a simple deterministic action based on task goals and state."""
+    cash = state["cash"]
+    users = state["users"]
+    burn = state["burn_rate"]
+    quality = state["product_quality"]
+    revenue = state["revenue"]
+
+    if cash < 8_000:
+        return "reduce_costs"
+    if task_name == "survival":
+        if burn > revenue * 1.5:
+            return "reduce_costs"
+        if quality < 0.72:
+            return "improve_product"
+        return "do_nothing"
+    if task_name == "growth":
+        if users < 600:
+            return "increase_marketing"
+        if quality < 0.75:
+            return "improve_product"
+        return "hire_engineer"
+    if task_name == "scaling":
+        if revenue < burn and cash > 20_000:
+            return "raise_funding"
+        if quality < 0.8:
+            return "improve_product"
+        if burn > revenue * 1.2:
+            return "reduce_costs"
+        return "increase_marketing"
+    return "do_nothing"
+
+
+def run_baseline(seed: int = 42) -> dict:
+    """Run the baseline policy for each task and return final scores and states."""
+    results = {}
+
+    # Re-run each task from the same seed so comparisons stay deterministic.
+    for task_name in ("survival", "growth", "scaling"):
+        env = StartupEnv(seed=seed)
+        env.reset(seed=seed)
+        done = False
+
+        while not done:
+            current_state = env.state().model_dump()
+            action = choose_action(task_name, current_state)
+            step_result = env.step(action)
+            done = step_result["done"]
+
+        final_state = env.state().model_dump()
+        results[task_name] = {
+            "score": grade(task_name, final_state)["score"],
+            "final_state": final_state,
+        }
+
+    return results
