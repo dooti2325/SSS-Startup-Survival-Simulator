@@ -42,7 +42,7 @@ def test_grader_and_baseline_are_valid() -> None:
     client.post("/reset", json={"seed": 42})
     response = client.get("/grader", params={"task_name": "survival"})
     assert response.status_code == 200
-    assert 0.0 <= response.json()["score"] <= 1.0
+    assert 0.0 < response.json()["score"] < 1.0
 
     # The baseline endpoint should always report one entry per published task.
     baseline_response = client.get("/baseline", params={"seed": 42})
@@ -50,4 +50,4 @@ def test_grader_and_baseline_are_valid() -> None:
     baseline_payload = baseline_response.json()
     assert set(baseline_payload.keys()) == {"survival", "growth", "scaling"}
     for task_result in baseline_payload.values():
-        assert 0.0 <= task_result["score"] <= 1.0
+        assert 0.0 < task_result["score"] < 1.0

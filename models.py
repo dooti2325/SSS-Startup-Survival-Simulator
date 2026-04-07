@@ -5,6 +5,9 @@ from typing import Any, Dict, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
+MIN_PUBLIC_SCORE = 1e-6
+MAX_PUBLIC_SCORE = 1.0 - MIN_PUBLIC_SCORE
+
 
 class Action(str, Enum):
     """Supported actions for each environment step."""
@@ -57,10 +60,10 @@ class StepRequest(BaseModel):
 class GraderResponse(BaseModel):
     """Score returned by the task grader."""
 
-    score: float = Field(ge=0.0, le=1.0)
+    score: float = Field(gt=0.0, lt=1.0)
 
     @field_validator("score")
     @classmethod
     def clamp_score(cls, value: float) -> float:
-        """Defend against floating-point drift in downstream score calculations."""
-        return max(0.0, min(1.0, float(value)))
+        """Defend against floating-point drift while keeping scores strictly in (0, 1)."""
+        return max(MIN_PUBLIC_SCORE, min(MAX_PUBLIC_SCORE, float(value)))

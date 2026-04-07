@@ -2,10 +2,13 @@
 
 from models import GraderResponse, StartupState
 
+MIN_SCORE = 1e-6
+MAX_SCORE = 1.0 - MIN_SCORE
+
 
 def _clamp(value: float) -> float:
-    """Clamp grader outputs into the public 0..1 score range."""
-    return max(0.0, min(1.0, float(value)))
+    """Clamp grader outputs into the validator-safe open interval (0, 1)."""
+    return max(MIN_SCORE, min(MAX_SCORE, float(value)))
 
 
 def grade(task_name: str, state: dict) -> dict:
