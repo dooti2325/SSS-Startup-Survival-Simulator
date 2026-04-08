@@ -165,7 +165,7 @@ def run_inference() -> None:
             success = score >= SUCCESS_SCORE_THRESHOLD
         except Exception:
             success = False
-            score = 0.0
+            score = 0.001
         finally:
             log_end(success=success, steps=steps_taken, score=score, rewards=rewards)
 

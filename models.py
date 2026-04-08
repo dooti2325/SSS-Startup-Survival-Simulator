@@ -5,8 +5,8 @@ from typing import Any, Dict, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
-MIN_PUBLIC_SCORE = 1e-6
-MAX_PUBLIC_SCORE = 1.0 - MIN_PUBLIC_SCORE
+MIN_PUBLIC_SCORE = 0.001
+MAX_PUBLIC_SCORE = 0.999
 
 
 class Action(str, Enum):
