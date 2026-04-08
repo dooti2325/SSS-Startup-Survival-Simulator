@@ -2,8 +2,8 @@
 
 from models import GraderResponse, StartupState
 
-MIN_SCORE = 1e-6
-MAX_SCORE = 1.0 - MIN_SCORE
+MIN_SCORE = 0.001
+MAX_SCORE = 0.999
 
 
 def _clamp(value: float) -> float:
