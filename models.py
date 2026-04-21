@@ -18,6 +18,8 @@ class Action(str, Enum):
     REDUCE_COSTS = "reduce_costs"
     PIVOT_MARKET = "pivot_market"
     RAISE_FUNDING = "raise_funding"
+    ANALYZE_MARKET = "analyze_market"
+    REFACTOR_CODE = "refactor_code"
     DO_NOTHING = "do_nothing"
 
 
@@ -29,9 +31,7 @@ class StartupState(BaseModel):
     revenue: float = Field(default=1_000.0, ge=0.0, description="Current revenue in USD")
     growth_rate: float = Field(default=0.08, ge=0.0, le=1.0, description="Growth multiplier per step")
     burn_rate: float = Field(default=4_500.0, ge=0.0, description="Operating burn per step in USD")
-    churn_rate: float = Field(default=0.03, ge=0.0, le=1.0, description="User churn fraction per step")
     product_quality: float = Field(default=0.55, ge=0.0, le=1.0, description="Product quality score")
-    market_demand: float = Field(default=0.6, ge=0.0, le=1.0, description="Market demand score")
     morale: float = Field(default=0.7, ge=0.0, le=1.0, description="Team morale score")
     time_step: int = Field(default=0, ge=0, description="Environment time step")
 
