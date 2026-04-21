@@ -190,9 +190,7 @@ Omitting the body or sending `{}` uses the default seed (42).
   "revenue": 1000.0,
   "growth_rate": 0.08,
   "burn_rate": 4500.0,
-  "churn_rate": 0.03,
   "product_quality": 0.55,
-  "market_demand": 0.6,
   "morale": 0.7,
   "time_step": 0
 }
@@ -211,7 +209,8 @@ Applies one action and advances the simulation by one time step.
 **Valid action values:**
 ```
 increase_marketing | hire_engineer | improve_product |
-reduce_costs | pivot_market | raise_funding | do_nothing
+reduce_costs | pivot_market | raise_funding | 
+analyze_market | refactor_code | do_nothing
 ```
 
 **Response:**
