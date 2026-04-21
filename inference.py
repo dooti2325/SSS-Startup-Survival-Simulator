@@ -37,6 +37,8 @@ VALID_ACTIONS = [
     "reduce_costs",
     "pivot_market",
     "raise_funding",
+    "analyze_market",
+    "refactor_code",
     "do_nothing",
 ]
 
@@ -67,6 +69,12 @@ def choose_preferred_action(task_name: str, state: dict) -> str:
     burn = state["burn_rate"]
     quality = state["product_quality"]
     morale = state["morale"]
+    time_step = state.get("time_step", 0)
+
+    if time_step > 0 and time_step % 8 == 0 and cash > 3000:
+        return "refactor_code"
+    if time_step > 0 and time_step % 5 == 0 and cash > 2000:
+        return "analyze_market"
 
     if cash < 8_000:
         return "reduce_costs"

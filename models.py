@@ -18,6 +18,8 @@ class Action(str, Enum):
     REDUCE_COSTS = "reduce_costs"
     PIVOT_MARKET = "pivot_market"
     RAISE_FUNDING = "raise_funding"
+    ANALYZE_MARKET = "analyze_market"
+    REFACTOR_CODE = "refactor_code"
     DO_NOTHING = "do_nothing"
 
 
