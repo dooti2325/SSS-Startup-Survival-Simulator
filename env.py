@@ -12,6 +12,8 @@ class StartupEnv:
     def __init__(self, seed: Optional[int] = 42):
         self.seed = seed
         self.rng = random.Random(seed)
+        self._market_demand = 0.6
+        self._churn_rate = 0.03
         self.current_state = StartupState()
         self.reset(seed=seed)
 
@@ -20,6 +22,8 @@ class StartupEnv:
         if seed is not None:
             self.seed = seed
         self.rng = random.Random(self.seed)
+        self._market_demand = 0.6
+        self._churn_rate = 0.03
         self.current_state = StartupState()
         return self.current_state
 
@@ -46,11 +50,11 @@ class StartupEnv:
 
         # Growth is applied before revenue so monetization reflects the updated user base.
         acquired_users = self._calculate_new_users(state)
-        lost_users = min(state.users, int(state.users * state.churn_rate))
+        lost_users = min(state.users, int(state.users * self._churn_rate))
         state.users = max(0, state.users + acquired_users - lost_users)
 
         arpu = 14.0 + (state.product_quality * 6.0)
-        state.revenue = round(state.users * arpu * max(0.35, state.market_demand), 2)
+        state.revenue = round(state.users * arpu * max(0.35, self._market_demand), 2)
         state.cash = round(max(0.0, state.cash + state.revenue - state.burn_rate), 2)
         state.time_step += 1
 
@@ -74,14 +78,14 @@ class StartupEnv:
         if action == Action.INCREASE_MARKETING:
             state.burn_rate += 1_200.0
             state.growth_rate = min(0.35, state.growth_rate + 0.03)
-            state.market_demand = min(1.0, state.market_demand + 0.03)
+            self._market_demand = min(1.0, self._market_demand + 0.03)
         elif action == Action.HIRE_ENGINEER:
             state.burn_rate += 2_200.0
             state.product_quality = min(1.0, state.product_quality + 0.07)
             state.morale = min(1.0, state.morale + 0.03)
         elif action == Action.IMPROVE_PRODUCT:
             state.product_quality = min(1.0, state.product_quality + 0.05)
-            state.churn_rate = max(0.01, state.churn_rate - 0.006)
+            self._churn_rate = max(0.01, self._churn_rate - 0.006)
             state.morale = min(1.0, state.morale + 0.02)
         elif action == Action.REDUCE_COSTS:
             state.burn_rate = max(1_800.0, state.burn_rate - 1_600.0)
@@ -90,9 +94,9 @@ class StartupEnv:
         elif action == Action.PIVOT_MARKET:
             demand_shift = self.rng.uniform(-0.08, 0.15)
             quality_shift = self.rng.uniform(-0.03, 0.04)
-            state.market_demand = max(0.2, min(1.0, state.market_demand + demand_shift))
+            self._market_demand = max(0.2, min(1.0, self._market_demand + demand_shift))
             state.product_quality = max(0.2, min(1.0, state.product_quality + quality_shift))
-            state.churn_rate = min(0.2, state.churn_rate + 0.01)
+            self._churn_rate = min(0.2, self._churn_rate + 0.01)
             info["pivot_shift"] = round(demand_shift, 3)
         elif action == Action.RAISE_FUNDING:
             probability = min(0.85, 0.2 + (state.product_quality * 0.3) + min(0.35, state.users / 5000))
@@ -108,21 +112,21 @@ class StartupEnv:
 
         state.burn_rate = round(state.burn_rate, 2)
         state.growth_rate = round(max(0.0, min(0.5, state.growth_rate)), 4)
-        state.churn_rate = round(max(0.0, min(0.25, state.churn_rate)), 4)
+        self._churn_rate = round(max(0.0, min(0.25, self._churn_rate)), 4)
         state.product_quality = round(max(0.0, min(1.0, state.product_quality)), 4)
-        state.market_demand = round(max(0.0, min(1.0, state.market_demand)), 4)
+        self._market_demand = round(max(0.0, min(1.0, self._market_demand)), 4)
         state.morale = round(max(0.0, min(1.0, state.morale)), 4)
 
     def _apply_market_noise(self, state: StartupState) -> None:
         market_noise = self.rng.uniform(-0.02, 0.02)
         churn_noise = self.rng.uniform(-0.003, 0.003)
-        state.market_demand = round(max(0.2, min(1.0, state.market_demand + market_noise)), 4)
-        state.churn_rate = round(max(0.01, min(0.25, state.churn_rate + churn_noise)), 4)
+        self._market_demand = round(max(0.2, min(1.0, self._market_demand + market_noise)), 4)
+        self._churn_rate = round(max(0.01, min(0.25, self._churn_rate + churn_noise)), 4)
 
     def _calculate_new_users(self, state: StartupState) -> int:
         base_growth = state.users * state.growth_rate
         quality_multiplier = 0.7 + (state.product_quality * 0.6)
-        demand_multiplier = 0.6 + (state.market_demand * 0.8)
+        demand_multiplier = 0.6 + (self._market_demand * 0.8)
         morale_multiplier = 0.75 + (state.morale * 0.35)
         bootstrap_users = 25 if state.users < 150 else 0
         new_users = int(base_growth * quality_multiplier * demand_multiplier * morale_multiplier) + bootstrap_users
