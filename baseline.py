@@ -12,20 +12,19 @@ def choose_action(task_name: str, state: dict) -> str:
     quality = state["product_quality"]
     revenue = state["revenue"]
 
-    if cash < 8_000:
-        return "reduce_costs"
     if task_name == "survival":
-        if burn > revenue * 1.5:
-            return "reduce_costs"
-        if quality < 0.72:
-            return "improve_product"
+        # INTENTIONAL FAILURE: Over-hiring without watching burn rate.
+        # This will quickly burn through cash and cause bankruptcy.
+        if cash > 2000:
+            return "hire_engineer"
         return "do_nothing"
+        
     if task_name == "growth":
-        if users < 600:
+        # INTENTIONAL FAILURE: Blind marketing without checking cash or quality.
+        if cash > 1000:
             return "increase_marketing"
-        if quality < 0.75:
-            return "improve_product"
-        return "hire_engineer"
+        return "do_nothing"
+        
     if task_name == "scaling":
         if revenue < burn and cash > 20_000:
             return "raise_funding"

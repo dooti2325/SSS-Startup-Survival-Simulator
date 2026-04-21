@@ -207,6 +207,7 @@ bash validate_submission.sh
 ├── interface.py      # Repo-root compatibility interface for submission validators
 ├── test_smoke.py     # Pre-submission smoke tests
 ├── openenv.yaml      # OpenEnv spec manifest
+├── train_trl.ipynb   # Unsloth TRL fine-tuning notebook
 ├── Dockerfile        # Docker build for HF Spaces
 └── requirements.txt  # Python dependencies
 ```
