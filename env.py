@@ -135,16 +135,19 @@ class StartupEnv:
         lost_users: int,
         revenue_delta: float,
     ) -> float:
-        user_growth = acquired_users - lost_users
-        quality_gain = self.current_state.product_quality - state_before.product_quality
-        reward = (
-            (user_growth * 1.5)
-            + (revenue_delta * 0.04)
-            + (quality_gain * 80.0)
-            - (self.current_state.burn_rate * 0.0015)
-            - (self.current_state.churn_rate * 40.0)
-        )
-        return round(float(reward), 4)
+        """
+        Simplified Reward:
+        Base reward is the net new users acquired this step.
+        If the startup goes bankrupt, it receives a heavy penalty.
+        """
+        net_users = acquired_users - lost_users
+        reward = float(net_users)
+        
+        # Apply bankruptcy penalty
+        if self.current_state.cash <= 0:
+            reward -= 100.0
+            
+        return round(reward, 4)
 
     def _check_done(self, state: StartupState) -> tuple[bool, Optional[str]]:
         if state.cash <= 0:
