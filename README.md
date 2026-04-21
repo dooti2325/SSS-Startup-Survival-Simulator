@@ -18,9 +18,12 @@ license: mit
 
 ---
 
-## Overview
+Startup Survival Simulator is a real-world, OpenEnv-compliant environment exposing a standard `reset()` / `step()` / `state()` interface via FastAPI. An AI agent observes 8 startup metrics and chooses one of 9 actions each turn. 
 
-Startup Survival Simulator is a real-world, OpenEnv-compliant environment exposing a standard `reset()` / `step()` / `state()` interface via FastAPI. An AI agent observes 10 startup metrics and chooses one of 7 actions each turn. The environment evolves through compounding effects on growth, revenue, product quality, morale, and cash — reflecting the real decisions an early-stage founder faces.
+The environment is designed to test:
+- **Partial Observability:** Critical metrics like `market_demand` and `churn_rate` are hidden. The agent must orchestrate multi-step workflows by using the `analyze_market` tool (API) to pierce this fog.
+- **Mistakes & Recovery:** Rapid growth builds hidden `technical_debt`. Without using the `refactor_code` action, the startup will experience a massive "Server Crash".
+- **Sparse Rewards:** The agent receives 0 reward per step, requiring successful scaling to hit massive milestone payouts.
 
 Episodes end when the startup **goes bankrupt**, **reaches 10,000 users**, or hits the **50-step timeout**.
 
@@ -53,13 +56,13 @@ export HF_TOKEN="hf_xxxxxxxxxxxx"
 | `revenue` | `float` | Revenue this step in USD |
 | `growth_rate` | `float [0,1]` | New-user multiplier |
 | `burn_rate` | `float` | Operating cost per step in USD |
-| `churn_rate` | `float [0,1]` | Fraction of users lost per step |
 | `product_quality` | `float [0,1]` | Product quality score |
-| `market_demand` | `float [0,1]` | External market demand score |
 | `morale` | `float [0,1]` | Team morale score |
 | `time_step` | `int` | Current step counter |
 
-**Starting values:** cash=50,000 · users=100 · revenue=1,000 · growth_rate=0.08 · burn_rate=4,500 · churn_rate=0.03 · product_quality=0.55 · market_demand=0.60 · morale=0.70
+*Note: `market_demand`, `churn_rate`, and `technical_debt` are explicitly hidden from the state to enforce World Modeling.*
+
+**Starting values:** cash=50,000 · users=100 · revenue=1,000 · growth_rate=0.08 · burn_rate=4,500 · product_quality=0.55 · morale=0.70
 
 ---
 
@@ -68,11 +71,13 @@ export HF_TOKEN="hf_xxxxxxxxxxxx"
 | Action | Effect |
 |---|---|
 | `increase_marketing` | +growth_rate, +market_demand, ++burn_rate |
-| `hire_engineer` | ++product_quality, +morale, +++burn_rate |
+| `hire_engineer` | ++product_quality, +morale, +++burn_rate, +tech_debt |
 | `improve_product` | +product_quality, −churn_rate, +morale |
 | `reduce_costs` | −burn_rate, −growth_rate, −morale |
 | `pivot_market` | Random market_demand ± shift (high risk/reward) |
 | `raise_funding` | Probabilistic +$30,000 cash (based on product quality & users) |
+| `analyze_market` | Tool action: Cost $1,000. Returns noisy info about hidden market_demand and churn_rate |
+| `refactor_code` | Recovery action: Cost $2,500. Reduces hidden tech_debt to prevent Server Crashes |
 | `do_nothing` | −morale (tiny) |
 
 ---
