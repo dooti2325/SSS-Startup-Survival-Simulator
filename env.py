@@ -14,6 +14,8 @@ class StartupEnv:
         self.rng = random.Random(seed)
         self._market_demand = 0.6
         self._churn_rate = 0.03
+        self._technical_debt = 0.0
+        self._milestones_reached = set()
         self.current_state = StartupState()
         self.reset(seed=seed)
 
@@ -24,6 +26,8 @@ class StartupEnv:
         self.rng = random.Random(self.seed)
         self._market_demand = 0.6
         self._churn_rate = 0.03
+        self._technical_debt = 0.0
+        self._milestones_reached = set()
         self.current_state = StartupState()
         return self.current_state
 
@@ -43,7 +47,7 @@ class StartupEnv:
         info: Dict[str, object] = {"action": selected_action.value}
 
         self._apply_action_effects(state, selected_action, info)
-        self._apply_market_noise(state)
+        self._apply_market_noise(state, info)
 
         prev_users = state.users
         prev_revenue = state.revenue
@@ -58,12 +62,7 @@ class StartupEnv:
         state.cash = round(max(0.0, state.cash + state.revenue - state.burn_rate), 2)
         state.time_step += 1
 
-        reward = self._calculate_reward(
-            state_before=state_before,
-            acquired_users=acquired_users,
-            lost_users=lost_users,
-            revenue_delta=state.revenue - prev_revenue,
-        )
+        reward = self._calculate_reward(state)
         done, reason = self._check_done(state)
         if reason:
             info["reason"] = reason
@@ -83,6 +82,7 @@ class StartupEnv:
             state.burn_rate += 2_200.0
             state.product_quality = min(1.0, state.product_quality + 0.07)
             state.morale = min(1.0, state.morale + 0.03)
+            self._technical_debt += 0.15
         elif action == Action.IMPROVE_PRODUCT:
             state.product_quality = min(1.0, state.product_quality + 0.05)
             self._churn_rate = max(0.01, self._churn_rate - 0.006)
@@ -107,6 +107,18 @@ class StartupEnv:
             else:
                 info["funding_raised"] = 0.0
                 state.morale = max(0.2, state.morale - 0.03)
+        elif action == Action.ANALYZE_MARKET:
+            state.cash = max(0.0, state.cash - 1_000.0)
+            info["market_report"] = {
+                "estimated_demand": round(self._market_demand + self.rng.uniform(-0.05, 0.05), 2),
+                "estimated_churn": round(self._churn_rate + self.rng.uniform(-0.01, 0.01), 3),
+                "technical_debt_warning": self._technical_debt > 0.6
+            }
+        elif action == Action.REFACTOR_CODE:
+            state.cash = max(0.0, state.cash - 2_500.0)
+            self._technical_debt = max(0.0, self._technical_debt - 0.4)
+            state.product_quality = min(1.0, state.product_quality + 0.02)
+            state.morale = min(1.0, state.morale + 0.05)
         elif action == Action.DO_NOTHING:
             state.morale = max(0.2, state.morale - 0.01)
 
@@ -117,11 +129,17 @@ class StartupEnv:
         self._market_demand = round(max(0.0, min(1.0, self._market_demand)), 4)
         state.morale = round(max(0.0, min(1.0, state.morale)), 4)
 
-    def _apply_market_noise(self, state: StartupState) -> None:
+    def _apply_market_noise(self, state: StartupState, info: Dict[str, object]) -> None:
         market_noise = self.rng.uniform(-0.02, 0.02)
         churn_noise = self.rng.uniform(-0.003, 0.003)
         self._market_demand = round(max(0.2, min(1.0, self._market_demand + market_noise)), 4)
         self._churn_rate = round(max(0.01, min(0.25, self._churn_rate + churn_noise)), 4)
+        
+        if self._technical_debt > 0.8:
+            info["server_crash"] = True
+            state.users = int(state.users * 0.8)
+            state.morale = max(0.2, state.morale - 0.3)
+            self._technical_debt = 0.4
 
     def _calculate_new_users(self, state: StartupState) -> int:
         base_growth = state.users * state.growth_rate
@@ -132,24 +150,22 @@ class StartupEnv:
         new_users = int(base_growth * quality_multiplier * demand_multiplier * morale_multiplier) + bootstrap_users
         return max(0, new_users)
 
-    def _calculate_reward(
-        self,
-        state_before: StartupState,
-        acquired_users: int,
-        lost_users: int,
-        revenue_delta: float,
-    ) -> float:
+    def _calculate_reward(self, state: StartupState) -> float:
         """
-        Simplified Reward:
-        Base reward is the net new users acquired this step.
-        If the startup goes bankrupt, it receives a heavy penalty.
+        Sparse Reward for Long-Horizon Planning:
+        Base reward is 0. Massive payouts for hitting user milestones.
         """
-        net_users = acquired_users - lost_users
-        reward = float(net_users)
+        reward = 0.0
+        
+        milestones = [1000, 2500, 5000, 7500, 10000]
+        for m in milestones:
+            if state.users >= m and m not in self._milestones_reached:
+                reward += 500.0
+                self._milestones_reached.add(m)
         
         # Apply bankruptcy penalty
-        if self.current_state.cash <= 0:
-            reward -= 100.0
+        if state.cash <= 0:
+            reward -= 1000.0
             
         return round(reward, 4)
 

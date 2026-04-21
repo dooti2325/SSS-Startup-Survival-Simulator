@@ -8,6 +8,8 @@ def run_agent(policy_func, task="survival"):
     state = env.state().model_dump()
     cash_history = [state["cash"]]
     users_history = [state["users"]]
+    reward_history = [0.0]
+    cumulative_reward = 0.0
     
     done = False
     while not done:
@@ -17,26 +19,28 @@ def run_agent(policy_func, task="survival"):
         state = res["state"]
         cash_history.append(state["cash"])
         users_history.append(state["users"])
+        cumulative_reward += res["reward"]
+        reward_history.append(cumulative_reward)
         
-    return cash_history, users_history
+    return cash_history, users_history, reward_history
 
 if __name__ == "__main__":
     print("Running naive baseline...")
-    naive_cash, naive_users = run_agent(naive_action, "survival")
+    naive_cash, naive_users, naive_reward = run_agent(naive_action, "survival")
     
     print("Running trained heuristic...")
-    trained_cash, trained_users = run_agent(trained_action, "survival")
+    trained_cash, trained_users, trained_reward = run_agent(trained_action, "survival")
     
     plt.figure(figsize=(12, 5))
     
-    # Plot Cash
+    # Plot Reward
     plt.subplot(1, 2, 1)
-    plt.plot(naive_cash, label="Naive Policy (Bankrupt)", color="#ff3333", linestyle="--", linewidth=2)
-    plt.plot(trained_cash, label="Trained Policy", color="#00c853", linewidth=2)
+    plt.plot(naive_reward, label="Naive Policy", color="#ff3333", linestyle="--", linewidth=2)
+    plt.plot(trained_reward, label="Trained Policy", color="#00c853", linewidth=2)
     plt.axhline(0, color='black', linewidth=1)
-    plt.title("Cash Reserves Over Time", fontsize=14)
+    plt.title("Cumulative Reward (Sparse)", fontsize=14)
     plt.xlabel("Time Step", fontsize=12)
-    plt.ylabel("Cash ($)", fontsize=12)
+    plt.ylabel("Reward Score", fontsize=12)
     plt.grid(True, alpha=0.3)
     plt.legend()
     
