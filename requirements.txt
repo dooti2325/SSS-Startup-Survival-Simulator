@@ -1,11 +1,22 @@
-# Runtime API dependencies.
+# Simulation & API
 fastapi
 uvicorn
 pydantic
-
-# Local testing and metadata helpers.
+pydantic-settings
 httpx
 pytest
-pyyaml
 
-openai
+# Data & ML
+numpy
+pandas
+torch
+transformers
+peft
+trl
+bitsandbytes
+accelerate
+
+# Unsloth specific (Optimized Kernels)
+unsloth
+xformers
+triton
