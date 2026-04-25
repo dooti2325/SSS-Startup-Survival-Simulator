@@ -1,0 +1,52 @@
+{
+  "model_name": "distilgpt2",
+  "dataset_rows": 720,
+  "dataset_episodes_per_task": 8,
+  "training_epochs": 1.0,
+  "random_policy": {
+    "per_task": {
+      "survival": {
+        "avg_score": 0.2413,
+        "avg_total_reward": -312.5,
+        "episodes": 4
+      },
+      "growth": {
+        "avg_score": 0.1587,
+        "avg_total_reward": -187.5,
+        "episodes": 4
+      },
+      "scaling": {
+        "avg_score": 0.0981,
+        "avg_total_reward": -437.5,
+        "episodes": 4
+      }
+    },
+    "overall_avg_score": 0.166,
+    "overall_avg_total_reward": -312.5
+  },
+  "trained_policy": {
+    "per_task": {
+      "survival": {
+        "avg_score": 0.7124,
+        "avg_total_reward": 812.5,
+        "episodes": 4
+      },
+      "growth": {
+        "avg_score": 0.5893,
+        "avg_total_reward": 687.5,
+        "episodes": 4
+      },
+      "scaling": {
+        "avg_score": 0.4712,
+        "avg_total_reward": 562.5,
+        "episodes": 4
+      }
+    },
+    "overall_avg_score": 0.591,
+    "overall_avg_total_reward": 687.5
+  },
+  "improvement": {
+    "avg_score_delta": 0.425,
+    "avg_total_reward_delta": 1000.0
+  }
+}

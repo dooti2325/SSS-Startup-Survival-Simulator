@@ -6,11 +6,13 @@ pydantic-settings
 httpx
 openai
 pytest
+openenv-core
 
 # Data & ML
 numpy
 pandas
 matplotlib
+datasets
 torch
 transformers
 peft

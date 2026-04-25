@@ -3,3 +3,16 @@ __pycache__/
 .pytest_cache/
 .deps/
 demo_outputs/
+
+# Training checkpoints and model weights (large — keep out of git).
+artifacts/trl_model/
+artifacts/startup_agent_lora/
+*.pth
+*.pt
+*.bin
+*.safetensors
+
+# Notebook temp files.
+.ipynb_checkpoints/
+
+# Do NOT ignore artifacts/*.json and artifacts/*.png — those are submission evidence.
