@@ -19,93 +19,19 @@ An OpenEnv-style startup decision simulator where an agent learns how to survive
 - Colab Notebook: https://colab.research.google.com/github/DivyankLosse/SSS-Startup-Survival-Simulator/blob/main/train_trl.ipynb
 - Code Repository: https://github.com/DivyankLosse/SSS-Startup-Survival-Simulator
 
-<<<<<<< HEAD
+## Environment Overview
+
 Startup Survival Simulator is a real-world, OpenEnv-compliant environment exposing a standard `reset()` / `step()` / `state()` interface via FastAPI. An AI agent observes 8 startup metrics and chooses one of 9 actions each turn. 
 
 The environment is designed to test:
 - **Partial Observability:** Critical metrics like `market_demand` and `churn_rate` are hidden. The agent must orchestrate multi-step workflows by using the `analyze_market` tool (API) to pierce this fog.
 - **Mistakes & Recovery:** Rapid growth builds hidden `technical_debt`. Without using the `refactor_code` action, the startup will experience a massive "Server Crash".
 - **Sparse Rewards:** The agent receives 0 reward per step, requiring successful scaling to hit massive milestone payouts.
-=======
-## What This Project Does
-
-The environment exposes standard API actions for:
->>>>>>> c2a96c6707af8220d912d11c1f4810e9d70e46cc
-
-- resetting the simulator
-- stepping the environment with one startup action
-- reading current state
-- listing tasks
-- grading performance
-- running a simple baseline
 
 Episodes end when the startup:
-
 - goes bankrupt
 - reaches 10,000 users
 - hits the 50-step limit
-
-## Main Actions
-
-- `increase_marketing`
-- `hire_engineer`
-- `improve_product`
-- `reduce_costs`
-- `pivot_market`
-- `raise_funding`
-- `do_nothing`
-
-## Required Submission Files
-
-- `api.py`
-- `env.py`
-- `models.py`
-- `grader.py`
-- `tasks.py`
-- `baseline.py`
-- `inference.py`
-- `interface.py`
-- `openenv.yaml`
-- `requirements.txt`
-- `Dockerfile`
-
-## Run Locally
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
-Start the API:
-
-```bash
-uvicorn api:app --host 0.0.0.0 --port 7860
-```
-
-Open:
-
-- Local app: http://localhost:7860/
-- Swagger docs: http://localhost:7860/docs
-
-## Run Inference
-
-Set these environment variables before running `inference.py`:
-
-- `API_BASE_URL`
-- `MODEL_NAME`
-- `HF_TOKEN`
-
-Example:
-
-```bash
-export API_BASE_URL="https://router.huggingface.co/v1"
-export MODEL_NAME="Qwen/Qwen2.5-7B-Instruct"
-export HF_TOKEN="hf_xxxxxxxxxxxx"
-<<<<<<< HEAD
-```
-
----
 
 ## Observation Space
 
@@ -124,8 +50,6 @@ export HF_TOKEN="hf_xxxxxxxxxxxx"
 
 **Starting values:** cash=50,000 · users=100 · revenue=1,000 · growth_rate=0.08 · burn_rate=4,500 · product_quality=0.55 · morale=0.70
 
----
-
 ## Action Space
 
 | Action | Effect |
@@ -140,8 +64,6 @@ export HF_TOKEN="hf_xxxxxxxxxxxx"
 | `refactor_code` | Recovery action: Cost $2,500. Reduces hidden tech_debt to prevent Server Crashes |
 | `do_nothing` | −morale (tiny) |
 
----
-
 ## Tasks & Grading
 
 | Task | Difficulty | Goal | Scoring Formula |
@@ -151,8 +73,6 @@ export HF_TOKEN="hf_xxxxxxxxxxxx"
 | `scaling` | Hard | Maximize revenue/burn efficiency | `efficiency × 0.7 + user_factor × 0.3` |
 
 All scores are clamped to `[0.0, 1.0]`.
-
----
 
 ## API Endpoints
 
@@ -167,36 +87,40 @@ All scores are clamped to `[0.0, 1.0]`.
 | `GET` | `/baseline?seed=42` | Run deterministic baseline across all tasks |
 | `GET` | `/docs` | Interactive Swagger UI |
 
----
+## Run Locally
 
-## Submission Files
-
-The hackathon verifier expects these files in the repo root:
-
-- `interface.py`
-- `inference.py`
-- `openenv.yaml`
-- `requirements.txt`
-
-## Running the Inference Script
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
-=======
->>>>>>> c2a96c6707af8220d912d11c1f4810e9d70e46cc
-python inference.py
 ```
 
-## API Endpoints
+Start the API:
 
-- `GET /`
-- `POST /reset`
-- `POST /step`
-- `GET /state`
-- `GET /tasks`
-- `GET /grader?task_name=survival`
-- `GET /baseline?seed=42`
-- `GET /docs`
+```bash
+uvicorn api:app --host 0.0.0.0 --port 7860
+```
+
+Open:
+- Local app: http://localhost:7860/
+- Swagger docs: http://localhost:7860/docs
+
+## Run Inference
+
+Set these environment variables before running `inference.py`:
+- `API_BASE_URL`
+- `MODEL_NAME`
+- `HF_TOKEN`
+
+Example:
+
+```bash
+export API_BASE_URL="https://router.huggingface.co/v1"
+export MODEL_NAME="Qwen/Qwen2.5-7B-Instruct"
+export HF_TOKEN="hf_xxxxxxxxxxxx"
+
+python inference.py
+```
 
 ## Quick Test
 
@@ -205,7 +129,6 @@ pytest test_smoke.py -v
 ```
 
 Optional validation:
-
 ```bash
 bash validate_submission.sh
 ```
@@ -227,7 +150,30 @@ Run the full hackathon demo:
 ```bash
 python sss_demo.py
 ```
-<<<<<<< HEAD
+
+Run stress/debug checks:
+
+```bash
+python sss_stress_debug.py
+```
+
+Run visualization from demo outputs:
+
+```bash
+python sss_visualize_demo.py
+```
+
+Generated artifacts:
+- `demo_outputs/demo_results.json`
+- `demo_outputs/trained_policy_qtable.json`
+
+Scenario metrics are included in `demo_results.json` under:
+- `scenario_results.recession`
+- `scenario_results.competition`
+
+## Project Structure
+
+```text
 ├── api.py            # FastAPI app — all HTTP endpoints
 ├── env.py            # StartupEnv simulation logic
 ├── models.py         # Pydantic typed models (State, Action, StepResult, etc.)
@@ -241,30 +187,7 @@ python sss_demo.py
 ├── train_trl.ipynb   # Unsloth TRL fine-tuning notebook
 ├── Dockerfile        # Docker build for HF Spaces
 └── requirements.txt  # Python dependencies
-=======
-
-Run stress/debug checks:
-
-```bash
-python sss_stress_debug.py
->>>>>>> c2a96c6707af8220d912d11c1f4810e9d70e46cc
 ```
-
-Run visualization from demo outputs:
-
-```bash
-python sss_visualize_demo.py
-```
-
-Generated artifacts:
-
-- `demo_outputs/demo_results.json`
-- `demo_outputs/trained_policy_qtable.json`
-
-Scenario metrics are included in `demo_results.json` under:
-
-- `scenario_results.recession`
-- `scenario_results.competition`
 
 ## Notes For Submission
 
