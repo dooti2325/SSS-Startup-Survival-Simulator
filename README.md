@@ -13,25 +13,36 @@ license: mit
 
 An OpenEnv-style startup decision simulator where an agent learns how to survive and scale under constraints.
 
-## Submission Links
+**Live Space:** https://huggingface.co/spaces/Loosebag/SSS-Startup-Survival-Simulator
+**API Docs:** Publish your own Hugging Face Space first, then use `<your-space-url>/docs`
 
-- Hugging Face Space URL: https://huggingface.co/spaces/Loosebag/SSS-Startup-Survival-Simulator
-- Colab Notebook: https://colab.research.google.com/github/DivyankLosse/SSS-Startup-Survival-Simulator/blob/main/train_trl.ipynb
-- Code Repository: https://github.com/DivyankLosse/SSS-Startup-Survival-Simulator
+---
 
-## Environment Overview
+## Overview
 
-Startup Survival Simulator is a real-world, OpenEnv-compliant environment exposing a standard `reset()` / `step()` / `state()` interface via FastAPI. An AI agent observes 8 startup metrics and chooses one of 9 actions each turn. 
+Startup Survival Simulator is a real-world, OpenEnv-compliant environment exposing a standard `reset()` / `step()` / `state()` interface via FastAPI. An AI agent observes 10 startup metrics and chooses one of 7 actions each turn. The environment evolves through compounding effects on growth, revenue, product quality, morale, and cash — reflecting the real decisions an early-stage founder faces.
 
-The environment is designed to test:
-- **Partial Observability:** Critical metrics like `market_demand` and `churn_rate` are hidden. The agent must orchestrate multi-step workflows by using the `analyze_market` tool (API) to pierce this fog.
-- **Mistakes & Recovery:** Rapid growth builds hidden `technical_debt`. Without using the `refactor_code` action, the startup will experience a massive "Server Crash".
-- **Sparse Rewards:** The agent receives 0 reward per step, requiring successful scaling to hit massive milestone payouts.
+Episodes end when the startup **goes bankrupt**, **reaches 10,000 users**, or hits the **50-step timeout**.
 
-Episodes end when the startup:
-- goes bankrupt
-- reaches 10,000 users
-- hits the 50-step limit
+---
+
+## Environment Variables
+
+Set these before running `inference.py`:
+
+| Variable | Description | Example |
+|---|---|---|
+| `API_BASE_URL` | OpenAI-compatible LLM endpoint | `https://router.huggingface.co/v1` |
+| `MODEL_NAME` | Model identifier | `Qwen/Qwen2.5-7B-Instruct` |
+| `HF_TOKEN` | Hugging Face API key | `hf_xxxxxxxxxxxx` |
+
+```bash
+export API_BASE_URL="https://router.huggingface.co/v1"
+export MODEL_NAME="Qwen/Qwen2.5-7B-Instruct"
+export HF_TOKEN="hf_xxxxxxxxxxxx"
+```
+
+---
 
 ## Observation Space
 
@@ -42,27 +53,29 @@ Episodes end when the startup:
 | `revenue` | `float` | Revenue this step in USD |
 | `growth_rate` | `float [0,1]` | New-user multiplier |
 | `burn_rate` | `float` | Operating cost per step in USD |
+| `churn_rate` | `float [0,1]` | Fraction of users lost per step |
 | `product_quality` | `float [0,1]` | Product quality score |
+| `market_demand` | `float [0,1]` | External market demand score |
 | `morale` | `float [0,1]` | Team morale score |
 | `time_step` | `int` | Current step counter |
 
-*Note: `market_demand`, `churn_rate`, and `technical_debt` are explicitly hidden from the state to enforce World Modeling.*
+**Starting values:** cash=50,000 · users=100 · revenue=1,000 · growth_rate=0.08 · burn_rate=4,500 · churn_rate=0.03 · product_quality=0.55 · market_demand=0.60 · morale=0.70
 
-**Starting values:** cash=50,000 · users=100 · revenue=1,000 · growth_rate=0.08 · burn_rate=4,500 · product_quality=0.55 · morale=0.70
+---
 
 ## Action Space
 
 | Action | Effect |
 |---|---|
 | `increase_marketing` | +growth_rate, +market_demand, ++burn_rate |
-| `hire_engineer` | ++product_quality, +morale, +++burn_rate, +tech_debt |
+| `hire_engineer` | ++product_quality, +morale, +++burn_rate |
 | `improve_product` | +product_quality, −churn_rate, +morale |
 | `reduce_costs` | −burn_rate, −growth_rate, −morale |
 | `pivot_market` | Random market_demand ± shift (high risk/reward) |
 | `raise_funding` | Probabilistic +$30,000 cash (based on product quality & users) |
-| `analyze_market` | Tool action: Cost $1,000. Returns noisy info about hidden market_demand and churn_rate |
-| `refactor_code` | Recovery action: Cost $2,500. Reduces hidden tech_debt to prevent Server Crashes |
 | `do_nothing` | −morale (tiny) |
+
+---
 
 ## Tasks & Grading
 
@@ -73,6 +86,8 @@ Episodes end when the startup:
 | `scaling` | Hard | Maximize revenue/burn efficiency | `efficiency × 0.7 + user_factor × 0.3` |
 
 All scores are clamped to `[0.0, 1.0]`.
+
+---
 
 ## API Endpoints
 
@@ -86,6 +101,17 @@ All scores are clamped to `[0.0, 1.0]`.
 | `GET` | `/grader?task_name=survival` | Score current state for a task |
 | `GET` | `/baseline?seed=42` | Run deterministic baseline across all tasks |
 | `GET` | `/docs` | Interactive Swagger UI |
+
+---
+
+## Submission Files
+
+The hackathon verifier expects these files in the repo root:
+
+- `interface.py`
+- `openenv.yaml`
+- `requirements.txt`
+- `Dockerfile`
 
 ## Run Locally
 
@@ -102,12 +128,14 @@ uvicorn api:app --host 0.0.0.0 --port 7860
 ```
 
 Open:
+
 - Local app: http://localhost:7860/
 - Swagger docs: http://localhost:7860/docs
 
 ## Run Inference
 
 Set these environment variables before running `inference.py`:
+
 - `API_BASE_URL`
 - `MODEL_NAME`
 - `HF_TOKEN`
@@ -118,9 +146,19 @@ Example:
 export API_BASE_URL="https://router.huggingface.co/v1"
 export MODEL_NAME="Qwen/Qwen2.5-7B-Instruct"
 export HF_TOKEN="hf_xxxxxxxxxxxx"
-
 python inference.py
 ```
+
+## API Endpoints
+
+- `GET /`
+- `POST /reset`
+- `POST /step`
+- `GET /state`
+- `GET /tasks`
+- `GET /grader?task_name=survival`
+- `GET /baseline?seed=42`
+- `GET /docs`
 
 ## Quick Test
 
@@ -129,51 +167,16 @@ pytest test_smoke.py -v
 ```
 
 Optional validation:
+
 ```bash
 bash validate_submission.sh
 ```
 
-## Hackathon Pipeline (Baseline vs Trained)
-
-This repository includes a reproducible hackathon flow:
-
-- Environment: `sss_hackathon_env.py`
-- Reward + Verifier: `sss_reward_verifier.py`
-- Training loop: `sss_training.py`
-- Demo runner: `sss_demo.py`
-- Stress/debug checks: `sss_stress_debug.py`
-- Scenario support: `standard`, `recession`, `competition`
-- Architecture doc: `HACKATHON_ARCHITECTURE.md`
-
-Run the full hackathon demo:
-
-```bash
-python sss_demo.py
-```
-
-Run stress/debug checks:
-
-```bash
-python sss_stress_debug.py
-```
-
-Run visualization from demo outputs:
-
-```bash
-python sss_visualize_demo.py
-```
-
-Generated artifacts:
-- `demo_outputs/demo_results.json`
-- `demo_outputs/trained_policy_qtable.json`
-
-Scenario metrics are included in `demo_results.json` under:
-- `scenario_results.recession`
-- `scenario_results.competition`
+---
 
 ## Project Structure
 
-```text
+```
 ├── api.py            # FastAPI app — all HTTP endpoints
 ├── env.py            # StartupEnv simulation logic
 ├── models.py         # Pydantic typed models (State, Action, StepResult, etc.)
@@ -184,12 +187,6 @@ Scenario metrics are included in `demo_results.json` under:
 ├── interface.py      # Repo-root compatibility interface for submission validators
 ├── test_smoke.py     # Pre-submission smoke tests
 ├── openenv.yaml      # OpenEnv spec manifest
-├── train_trl.ipynb   # Unsloth TRL fine-tuning notebook
 ├── Dockerfile        # Docker build for HF Spaces
 └── requirements.txt  # Python dependencies
 ```
-
-## Notes For Submission
-
-- Keep all submission links updated in this README.
-- Push `train_trl.ipynb` so the Colab link stays valid.
