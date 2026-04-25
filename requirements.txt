@@ -9,10 +9,7 @@ pytest
 # Data & ML
 numpy
 pandas
-<<<<<<< HEAD
-=======
 matplotlib
->>>>>>> upstream/main
 torch
 transformers
 peft
@@ -23,8 +20,4 @@ accelerate
 # Unsloth specific (Optimized Kernels)
 unsloth
 xformers
-<<<<<<< HEAD
 triton
-=======
-triton
->>>>>>> upstream/main
