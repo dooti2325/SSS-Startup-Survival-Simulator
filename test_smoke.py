@@ -1,8 +1,12 @@
 """Smoke tests for local API verification."""
 
+from io import StringIO
+from contextlib import redirect_stdout
+
 from fastapi.testclient import TestClient
 
 from api import app
+from inference import log_end
 
 
 client = TestClient(app)
@@ -51,3 +55,13 @@ def test_grader_and_baseline_are_valid() -> None:
     assert set(baseline_payload.keys()) == {"survival", "growth", "scaling"}
     for task_result in baseline_payload.values():
         assert 0.0 < task_result["score"] < 1.0
+
+
+def test_inference_log_preserves_open_interval_scores() -> None:
+    stream = StringIO()
+    with redirect_stdout(stream):
+        log_end(success=True, steps=5, score=0.999999, rewards=[1.0, 2.0])
+
+    output = stream.getvalue().strip()
+    assert "score=0.999999" in output
+    assert "score=1.000" not in output

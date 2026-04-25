@@ -9,40 +9,100 @@ pinned: false
 license: mit
 ---
 
-# 🚀 Startup Survival Simulator
+# Startup Survival Simulator
 
-> An OpenEnv-style AI decision environment where an LLM agent runs an early-stage startup through growth, burn, churn, and market pressure.
+An OpenEnv-style startup decision simulator where an agent learns how to survive and scale under constraints.
 
-**Live Space:** https://huggingface.co/spaces/Loosebag/SSS-Startup-Survival-Simulator
-**API Docs:** Publish your own Hugging Face Space first, then use `<your-space-url>/docs`
+## Submission Links
 
----
+- Hugging Face Space URL: https://huggingface.co/spaces/Loosebag/SSS-Startup-Survival-Simulator
+- Colab Notebook: https://colab.research.google.com/github/DivyankLosse/SSS-Startup-Survival-Simulator/blob/main/train_trl.ipynb
+- Code Repository: https://github.com/DivyankLosse/SSS-Startup-Survival-Simulator
 
+<<<<<<< HEAD
 Startup Survival Simulator is a real-world, OpenEnv-compliant environment exposing a standard `reset()` / `step()` / `state()` interface via FastAPI. An AI agent observes 8 startup metrics and chooses one of 9 actions each turn. 
 
 The environment is designed to test:
 - **Partial Observability:** Critical metrics like `market_demand` and `churn_rate` are hidden. The agent must orchestrate multi-step workflows by using the `analyze_market` tool (API) to pierce this fog.
 - **Mistakes & Recovery:** Rapid growth builds hidden `technical_debt`. Without using the `refactor_code` action, the startup will experience a massive "Server Crash".
 - **Sparse Rewards:** The agent receives 0 reward per step, requiring successful scaling to hit massive milestone payouts.
+=======
+## What This Project Does
 
-Episodes end when the startup **goes bankrupt**, **reaches 10,000 users**, or hits the **50-step timeout**.
+The environment exposes standard API actions for:
+>>>>>>> c2a96c6707af8220d912d11c1f4810e9d70e46cc
 
----
+- resetting the simulator
+- stepping the environment with one startup action
+- reading current state
+- listing tasks
+- grading performance
+- running a simple baseline
 
-## Environment Variables
+Episodes end when the startup:
 
-Set these before running `inference.py`:
+- goes bankrupt
+- reaches 10,000 users
+- hits the 50-step limit
 
-| Variable | Description | Example |
-|---|---|---|
-| `API_BASE_URL` | OpenAI-compatible LLM endpoint | `https://router.huggingface.co/v1` |
-| `MODEL_NAME` | Model identifier | `Qwen/Qwen2.5-7B-Instruct` |
-| `HF_TOKEN` | Hugging Face API key | `hf_xxxxxxxxxxxx` |
+## Main Actions
+
+- `increase_marketing`
+- `hire_engineer`
+- `improve_product`
+- `reduce_costs`
+- `pivot_market`
+- `raise_funding`
+- `do_nothing`
+
+## Required Submission Files
+
+- `api.py`
+- `env.py`
+- `models.py`
+- `grader.py`
+- `tasks.py`
+- `baseline.py`
+- `inference.py`
+- `interface.py`
+- `openenv.yaml`
+- `requirements.txt`
+- `Dockerfile`
+
+## Run Locally
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Start the API:
+
+```bash
+uvicorn api:app --host 0.0.0.0 --port 7860
+```
+
+Open:
+
+- Local app: http://localhost:7860/
+- Swagger docs: http://localhost:7860/docs
+
+## Run Inference
+
+Set these environment variables before running `inference.py`:
+
+- `API_BASE_URL`
+- `MODEL_NAME`
+- `HF_TOKEN`
+
+Example:
 
 ```bash
 export API_BASE_URL="https://router.huggingface.co/v1"
 export MODEL_NAME="Qwen/Qwen2.5-7B-Instruct"
 export HF_TOKEN="hf_xxxxxxxxxxxx"
+<<<<<<< HEAD
 ```
 
 ---
@@ -122,86 +182,52 @@ The hackathon verifier expects these files in the repo root:
 
 ```bash
 pip install -r requirements.txt
+=======
+>>>>>>> c2a96c6707af8220d912d11c1f4810e9d70e46cc
 python inference.py
 ```
 
-Expected output format:
-```text
-[START] task=survival env=startup-survival-simulator model=Qwen/Qwen2.5-7B-Instruct
-[STEP] step=1 action=improve_product reward=12.50 done=false error=null
-[STEP] step=2 action=raise_funding reward=8.30 done=false error=null
-...
-[END] success=true steps=30 rewards=12.50,8.30,...
-```
+## API Endpoints
 
----
+- `GET /`
+- `POST /reset`
+- `POST /step`
+- `GET /state`
+- `GET /tasks`
+- `GET /grader?task_name=survival`
+- `GET /baseline?seed=42`
+- `GET /docs`
 
-## Running the API Locally
-
-```bash
-pip install -r requirements.txt
-uvicorn api:app --host 0.0.0.0 --port 7860
-```
-
-Then open [http://localhost:7860/docs](http://localhost:7860/docs).
-
----
-
-## Example curl Requests
+## Quick Test
 
 ```bash
-# Reset with seed
-curl -X POST "http://localhost:7860/reset" \
-     -H "Content-Type: application/json" -d '{"seed": 42}'
-
-# Take a step
-curl -X POST "http://localhost:7860/step" \
-     -H "Content-Type: application/json" -d '{"action": "improve_product"}'
-
-# Get current state
-curl "http://localhost:7860/state"
-
-# Score for survival task
-curl "http://localhost:7860/grader?task_name=survival"
-
-# Run baseline across all tasks
-curl "http://localhost:7860/baseline"
-```
-
----
-
-## Docker
-
-```bash
-docker build -t startup-survival-simulator .
-docker run -p 7860:7860 \
-  -e API_BASE_URL="https://router.huggingface.co/v1" \
-  -e MODEL_NAME="Qwen/Qwen2.5-7B-Instruct" \
-  -e HF_TOKEN="hf_xxxx" \
-  startup-survival-simulator
-```
-
----
-
-## Smoke Tests
-
-```bash
-pip install pytest httpx
 pytest test_smoke.py -v
 ```
 
-All 4 tests should pass in under 1 second.
+Optional validation:
 
-Pre-submission validator:
 ```bash
 bash validate_submission.sh
 ```
 
----
+## Hackathon Pipeline (Baseline vs Trained)
 
-## Project Structure
+This repository includes a reproducible hackathon flow:
 
+- Environment: `sss_hackathon_env.py`
+- Reward + Verifier: `sss_reward_verifier.py`
+- Training loop: `sss_training.py`
+- Demo runner: `sss_demo.py`
+- Stress/debug checks: `sss_stress_debug.py`
+- Scenario support: `standard`, `recession`, `competition`
+- Architecture doc: `HACKATHON_ARCHITECTURE.md`
+
+Run the full hackathon demo:
+
+```bash
+python sss_demo.py
 ```
+<<<<<<< HEAD
 ├── api.py            # FastAPI app — all HTTP endpoints
 ├── env.py            # StartupEnv simulation logic
 ├── models.py         # Pydantic typed models (State, Action, StepResult, etc.)
@@ -215,4 +241,32 @@ bash validate_submission.sh
 ├── train_trl.ipynb   # Unsloth TRL fine-tuning notebook
 ├── Dockerfile        # Docker build for HF Spaces
 └── requirements.txt  # Python dependencies
+=======
+
+Run stress/debug checks:
+
+```bash
+python sss_stress_debug.py
+>>>>>>> c2a96c6707af8220d912d11c1f4810e9d70e46cc
 ```
+
+Run visualization from demo outputs:
+
+```bash
+python sss_visualize_demo.py
+```
+
+Generated artifacts:
+
+- `demo_outputs/demo_results.json`
+- `demo_outputs/trained_policy_qtable.json`
+
+Scenario metrics are included in `demo_results.json` under:
+
+- `scenario_results.recession`
+- `scenario_results.competition`
+
+## Notes For Submission
+
+- Keep all submission links updated in this README.
+- Push `train_trl.ipynb` so the Colab link stays valid.
