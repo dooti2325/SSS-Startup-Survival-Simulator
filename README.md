@@ -128,6 +128,7 @@ This repository includes a reproducible hackathon flow:
 - Training loop: `sss_training.py`
 - Demo runner: `sss_demo.py`
 - Stress/debug checks: `sss_stress_debug.py`
+- Scenario support: `standard`, `recession`, `competition`
 - Architecture doc: `HACKATHON_ARCHITECTURE.md`
 
 Run the full hackathon demo:
@@ -152,6 +153,11 @@ Generated artifacts:
 
 - `demo_outputs/demo_results.json`
 - `demo_outputs/trained_policy_qtable.json`
+
+Scenario metrics are included in `demo_results.json` under:
+
+- `scenario_results.recession`
+- `scenario_results.competition`
 
 ## Notes For Submission
 

@@ -24,6 +24,27 @@ ACTIONS: List[str] = [
     "do_nothing",
 ]
 
+SCENARIOS: Dict[str, Dict[str, float]] = {
+    "standard": {
+        "market_demand_shift": 0.0,
+        "revenue_multiplier": 1.0,
+        "burn_multiplier": 1.0,
+        "product_decay": 0.0,
+    },
+    "recession": {
+        "market_demand_shift": -0.015,
+        "revenue_multiplier": 0.9,
+        "burn_multiplier": 1.03,
+        "product_decay": 0.0,
+    },
+    "competition": {
+        "market_demand_shift": -0.008,
+        "revenue_multiplier": 0.94,
+        "burn_multiplier": 1.01,
+        "product_decay": 0.003,
+    },
+}
+
 
 @dataclass
 class StartupState:
@@ -43,18 +64,23 @@ class StartupState:
 class StartupSurvivalEnv:
     """Deterministic startup management simulator with anti-cheat constraints."""
 
-    def __init__(self, seed: int = 42, max_steps: int = 40) -> None:
+    def __init__(self, seed: int = 42, max_steps: int = 40, scenario: str = "standard") -> None:
         self.base_seed = seed
         self.max_steps = max_steps
         self.max_team_size = 16
+        self.scenario = scenario
         self.rng = random.Random(seed)
         self.current_state = StartupState()
-        self.reset(seed=seed)
+        self.reset(seed=seed, scenario=scenario)
 
-    def reset(self, seed: Optional[int] = None) -> Dict[str, float]:
+    def reset(self, seed: Optional[int] = None, scenario: Optional[str] = None) -> Dict[str, float]:
         """Reset environment to initial startup configuration."""
         if seed is not None:
             self.base_seed = seed
+        if scenario is not None:
+            if scenario not in SCENARIOS:
+                raise ValueError(f"Invalid scenario: {scenario}")
+            self.scenario = scenario
         self.rng = random.Random(self.base_seed)
         self.current_state = StartupState()
         self._update_runway()
@@ -82,6 +108,7 @@ class StartupSurvivalEnv:
         reward = compute_reward(previous_state=previous_state, current_state=self.current_state, info=info)
         done, reason = self._is_done()
         info["reason"] = reason
+        info["scenario"] = self.scenario
 
         return {
             "state": self.state(),
@@ -156,7 +183,11 @@ class StartupSurvivalEnv:
     def _advance_market(self) -> None:
         st = self.current_state
         market_noise = self.rng.uniform(-0.03, 0.03)
-        st.market_demand = min(1.0, max(0.05, st.market_demand + market_noise))
+        scenario_shift = SCENARIOS[self.scenario]["market_demand_shift"]
+        st.market_demand = min(1.0, max(0.05, st.market_demand + market_noise + scenario_shift))
+        decay = SCENARIOS[self.scenario]["product_decay"]
+        if decay > 0:
+            st.product_strength = max(0.05, st.product_strength - decay)
 
     def _apply_violation_penalty(self) -> None:
         """Immediate hard penalty for invalid decisions to prevent reward hacking."""
@@ -172,10 +203,12 @@ class StartupSurvivalEnv:
         saturation = max(0.35, 1.0 - (st.revenue / 150_000.0))
         growth_multiplier = team_factor * st.product_strength * st.market_demand * saturation
         revenue_gain = max(0.0, 700.0 * growth_multiplier + self.rng.uniform(-120.0, 180.0))
+        revenue_gain *= SCENARIOS[self.scenario]["revenue_multiplier"]
         st.revenue = max(0.0, st.revenue + revenue_gain)
 
         st.funding = max(0.0, st.funding + st.revenue - st.burn_rate)
-        st.burn_rate = max(1_200.0, st.burn_rate + self.rng.uniform(-60.0, 90.0))
+        next_burn = max(1_200.0, st.burn_rate + self.rng.uniform(-60.0, 90.0))
+        st.burn_rate = next_burn * SCENARIOS[self.scenario]["burn_multiplier"]
 
     def _update_runway(self) -> None:
         st = self.current_state

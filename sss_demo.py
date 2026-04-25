@@ -11,7 +11,7 @@ from sss_reward_verifier import verify_episode
 from sss_training import (
     build_greedy_policy,
     build_random_policy,
-    evaluate_policy,
+    evaluate_policy_in_scenario,
     run_episode,
     save_artifacts,
     train_q_learning,
@@ -36,11 +36,11 @@ def run_demo() -> Dict[str, object]:
     replay_seed = 19
 
     baseline_policy = build_random_policy(seed=2026)
-    baseline_metrics = evaluate_policy(baseline_policy, scenario_seeds)
+    baseline_metrics = evaluate_policy_in_scenario(baseline_policy, scenario_seeds, scenario="standard")
 
     artifacts = train_q_learning(episodes=350, seed=2026)
     trained_policy = build_greedy_policy(artifacts)
-    trained_metrics = evaluate_policy(trained_policy, scenario_seeds)
+    trained_metrics = evaluate_policy_in_scenario(trained_policy, scenario_seeds, scenario="standard")
 
     baseline_replay = _replay(replay_seed, baseline_policy)
     trained_replay = _replay(replay_seed, trained_policy)
@@ -63,6 +63,28 @@ def run_demo() -> Dict[str, object]:
             "trained": trained_replay,
         },
     }
+
+    scenario_results = {}
+    for scenario_name in ("recession", "competition"):
+        baseline_scenario = evaluate_policy_in_scenario(baseline_policy, scenario_seeds, scenario=scenario_name)
+        trained_scenario = evaluate_policy_in_scenario(trained_policy, scenario_seeds, scenario=scenario_name)
+        scenario_results[scenario_name] = {
+            "baseline": baseline_scenario,
+            "trained": trained_scenario,
+            "improvement": {
+                "avg_reward_lift": round(
+                    trained_scenario["avg_total_reward"] - baseline_scenario["avg_total_reward"], 4
+                ),
+                "survival_rate_lift": round(
+                    trained_scenario["survival_rate"] - baseline_scenario["survival_rate"], 4
+                ),
+                "verifier_pass_rate_lift": round(
+                    trained_scenario["verifier_pass_rate"] - baseline_scenario["verifier_pass_rate"], 4
+                ),
+            },
+        }
+
+    results["scenario_results"] = scenario_results
 
     output_dir = Path("demo_outputs")
     output_dir.mkdir(parents=True, exist_ok=True)

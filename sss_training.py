@@ -131,7 +131,11 @@ def build_random_policy(seed: int = 123):
 
 
 def evaluate_policy(policy_fn, seeds: List[int]) -> Dict[str, object]:
-    env = StartupSurvivalEnv(seed=seeds[0] if seeds else 42)
+    return evaluate_policy_in_scenario(policy_fn, seeds, scenario="standard")
+
+
+def evaluate_policy_in_scenario(policy_fn, seeds: List[int], scenario: str = "standard") -> Dict[str, object]:
+    env = StartupSurvivalEnv(seed=seeds[0] if seeds else 42, scenario=scenario)
     rewards: List[float] = []
     verifier_passes = 0
     survival_passes = 0
@@ -146,6 +150,7 @@ def evaluate_policy(policy_fn, seeds: List[int]) -> Dict[str, object]:
             survival_passes += 1
 
     return {
+        "scenario": scenario,
         "scenario_count": len(seeds),
         "avg_total_reward": round(sum(rewards) / max(len(rewards), 1), 4),
         "min_total_reward": min(rewards) if rewards else 0.0,
