@@ -98,7 +98,7 @@ def train_q_learning(
 
             next_bucket = state_to_bucket(next_state)
             ensure_state(next_bucket)
-            next_best = max(q_table[next_bucket])
+            next_best = 0.0 if done else max(q_table[next_bucket])
             old_q = q_table[bucket][action_index]
             q_table[bucket][action_index] = old_q + alpha * (reward + (gamma * next_best) - old_q)
 

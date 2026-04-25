@@ -35,14 +35,17 @@ def run_demo() -> Dict[str, object]:
     scenario_seeds: List[int] = list(range(1, 41))
     replay_seed = 19
 
-    baseline_policy = build_random_policy(seed=2026)
-    baseline_metrics = evaluate_policy_in_scenario(baseline_policy, scenario_seeds, scenario="standard")
+    baseline_metrics = evaluate_policy_in_scenario(
+        build_random_policy(seed=2026),
+        scenario_seeds,
+        scenario="standard",
+    )
 
     artifacts = train_q_learning(episodes=350, seed=2026)
     trained_policy = build_greedy_policy(artifacts)
     trained_metrics = evaluate_policy_in_scenario(trained_policy, scenario_seeds, scenario="standard")
 
-    baseline_replay = _replay(replay_seed, baseline_policy)
+    baseline_replay = _replay(replay_seed, build_random_policy(seed=2026))
     trained_replay = _replay(replay_seed, trained_policy)
 
     reward_lift = round(trained_metrics["avg_total_reward"] - baseline_metrics["avg_total_reward"], 4)
@@ -66,7 +69,11 @@ def run_demo() -> Dict[str, object]:
 
     scenario_results = {}
     for scenario_name in ("recession", "competition"):
-        baseline_scenario = evaluate_policy_in_scenario(baseline_policy, scenario_seeds, scenario=scenario_name)
+        baseline_scenario = evaluate_policy_in_scenario(
+            build_random_policy(seed=2026),
+            scenario_seeds,
+            scenario=scenario_name,
+        )
         trained_scenario = evaluate_policy_in_scenario(trained_policy, scenario_seeds, scenario=scenario_name)
         scenario_results[scenario_name] = {
             "baseline": baseline_scenario,

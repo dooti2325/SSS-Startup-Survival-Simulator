@@ -9,6 +9,7 @@ pytest
 # Data & ML
 numpy
 pandas
+matplotlib
 torch
 transformers
 peft
