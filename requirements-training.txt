@@ -1,0 +1,12 @@
+# Training-only dependencies (Colab / local GPU), separate from Space runtime.
+torch
+transformers
+peft
+trl
+bitsandbytes
+accelerate
+unsloth
+xformers
+triton
+pandas
+matplotlib

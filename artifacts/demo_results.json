@@ -1,0 +1,1741 @@
+{
+  "baseline_metrics": {
+    "scenario": "standard",
+    "scenario_count": 40,
+    "avg_total_reward": -154.0627,
+    "min_total_reward": -301.2232,
+    "max_total_reward": -20.0154,
+    "verifier_pass_rate": 0.6,
+    "survival_rate": 0.725,
+    "episode_rewards": [
+      -301.2232,
+      -257.4294,
+      -74.3422,
+      -114.2126,
+      -205.2347,
+      -192.6501,
+      -237.1263,
+      -69.2989,
+      -262.7716,
+      -86.4206,
+      -126.5676,
+      -219.8597,
+      -103.5335,
+      -136.4074,
+      -264.0965,
+      -188.0203,
+      -181.145,
+      -208.7073,
+      -134.131,
+      -87.0173,
+      -108.9684,
+      -58.0316,
+      -183.9371,
+      -20.0154,
+      -190.1769,
+      -97.1738,
+      -134.3927,
+      -93.8869,
+      -87.5441,
+      -116.6966,
+      -84.6938,
+      -91.7052,
+      -236.9912,
+      -67.3741,
+      -118.0331,
+      -270.1382,
+      -185.3339,
+      -229.5145,
+      -192.2267,
+      -145.479
+    ]
+  },
+  "trained_metrics": {
+    "scenario": "standard",
+    "scenario_count": 40,
+    "avg_total_reward": -46.9685,
+    "min_total_reward": -124.8696,
+    "max_total_reward": 30.891,
+    "verifier_pass_rate": 1.0,
+    "survival_rate": 1.0,
+    "episode_rewards": [
+      -124.8696,
+      -44.1024,
+      -71.4301,
+      -82.0283,
+      4.1437,
+      -71.978,
+      -70.708,
+      -66.3138,
+      -78.2871,
+      -74.0083,
+      24.7378,
+      -50.6135,
+      14.277,
+      7.0557,
+      -14.3373,
+      -92.1503,
+      -111.2546,
+      -97.1617,
+      -67.1884,
+      -2.7387,
+      -62.5048,
+      -21.909,
+      -90.8805,
+      -9.8293,
+      -55.8791,
+      -65.262,
+      -40.848,
+      -114.6712,
+      -45.2401,
+      -61.3398,
+      -57.1268,
+      7.8034,
+      -77.3684,
+      23.0438,
+      -2.4206,
+      30.891,
+      4.0697,
+      -66.7029,
+      -107.2653,
+      3.6569
+    ]
+  },
+  "improvement": {
+    "avg_reward_lift": 107.0942,
+    "survival_rate_lift": 0.275,
+    "verifier_pass_rate_lift": 0.4
+  },
+  "same_seed_replay": {
+    "seed": 19,
+    "baseline": {
+      "seed": 19,
+      "total_reward": -203.3829,
+      "steps": 24,
+      "verdict": {
+        "passed": false,
+        "checks": {
+          "survived_x_steps": false,
+          "revenue_gt_burn": true,
+          "no_constraint_violations": false
+        },
+        "summary": "FAIL",
+        "final_state": {
+          "funding": 1959.7068287187549,
+          "team_size": 5,
+          "burn_rate": 6903.187202961211,
+          "market_demand": 0.894272649933959,
+          "runway": 0.28,
+          "revenue": 8456.897597422687,
+          "product_strength": 0.7070670555289092,
+          "time_step": 24,
+          "constraint_violations": 3
+        }
+      },
+      "trajectory": [
+        {
+          "state": {
+            "funding": 45151.08149092996,
+            "team_size": 5,
+            "burn_rate": 5368.069923580462,
+            "market_demand": 0.5606275496080163,
+            "runway": 8.41,
+            "revenue": 2501.0814909299584,
+            "product_strength": 0.48,
+            "time_step": 1,
+            "constraint_violations": 0
+          },
+          "reward": -3.477,
+          "done": false,
+          "info": {
+            "action": "hire",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 41381.13421539737,
+            "team_size": 5,
+            "burn_rate": 5457.5924641451475,
+            "market_demand": 0.5613170517576119,
+            "runway": 7.58,
+            "revenue": 2698.1226480478717,
+            "product_strength": 0.515,
+            "time_step": 2,
+            "constraint_violations": 0
+          },
+          "reward": -4.7647,
+          "done": false,
+          "info": {
+            "action": "build_feature",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 37629.893764814275,
+            "team_size": 5,
+            "burn_rate": 5586.658043185347,
+            "market_demand": 0.5646808866374221,
+            "runway": 6.74,
+            "revenue": 2856.352013562058,
+            "product_strength": 0.515,
+            "time_step": 3,
+            "constraint_violations": 0
+          },
+          "reward": -5.3981,
+          "done": false,
+          "info": {
+            "action": "marketing_spend",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 33865.97225774315,
+            "team_size": 5,
+            "burn_rate": 5725.483004553939,
+            "market_demand": 0.5771238880453354,
+            "runway": 5.91,
+            "revenue": 2972.736536114233,
+            "product_strength": 0.515,
+            "time_step": 4,
+            "constraint_violations": 0
+          },
+          "reward": -7.4805,
+          "done": false,
+          "info": {
+            "action": "marketing_spend",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 31358.863115636883,
+            "team_size": 5,
+            "burn_rate": 5695.727644679809,
+            "market_demand": 0.5557877922754207,
+            "runway": 5.51,
+            "revenue": 3218.373862447669,
+            "product_strength": 0.511,
+            "time_step": 5,
+            "constraint_violations": 0
+          },
+          "reward": -6.0112,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 26186.37009382247,
+            "team_size": 6,
+            "burn_rate": 6567.094033688726,
+            "market_demand": 0.5300350554627697,
+            "runway": 3.99,
+            "revenue": 3373.234622865394,
+            "product_strength": 0.541,
+            "time_step": 6,
+            "constraint_violations": 0
+          },
+          "reward": -8.4039,
+          "done": false,
+          "info": {
+            "action": "hire",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 24080.91545543527,
+            "team_size": 5,
+            "burn_rate": 5827.55296378456,
+            "market_demand": 0.5233487643043148,
+            "runway": 4.13,
+            "revenue": 3661.6393953015295,
+            "product_strength": 0.526,
+            "time_step": 7,
+            "constraint_violations": 0
+          },
+          "reward": -5.7516,
+          "done": false,
+          "info": {
+            "action": "fire",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 21053.794205372917,
+            "team_size": 5,
+            "burn_rate": 6030.902434861283,
+            "market_demand": 0.5300321487495198,
+            "runway": 3.49,
+            "revenue": 3950.4317137222056,
+            "product_strength": 0.526,
+            "time_step": 8,
+            "constraint_violations": 0
+          },
+          "reward": -6.0727,
+          "done": false,
+          "info": {
+            "action": "marketing_spend",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 17997.14619425482,
+            "team_size": 5,
+            "burn_rate": 6258.136456028331,
+            "market_demand": 0.5693326732030987,
+            "runway": 2.88,
+            "revenue": 4124.2544237431875,
+            "product_strength": 0.526,
+            "time_step": 9,
+            "constraint_violations": 0
+          },
+          "reward": -7.701,
+          "done": false,
+          "info": {
+            "action": "marketing_spend",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 15108.085012894908,
+            "team_size": 5,
+            "burn_rate": 6383.062650474149,
+            "market_demand": 0.6385407979014271,
+            "runway": 2.37,
+            "revenue": 4519.075274668418,
+            "product_strength": 0.526,
+            "time_step": 10,
+            "constraint_violations": 0
+          },
+          "reward": -5.4699,
+          "done": false,
+          "info": {
+            "action": "marketing_spend",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 12024.919155208194,
+            "team_size": 5,
+            "burn_rate": 6343.844175849084,
+            "market_demand": 0.7056350638288847,
+            "runway": 1.9,
+            "revenue": 4799.896792787436,
+            "product_strength": 0.5922754474695293,
+            "time_step": 11,
+            "constraint_violations": 0
+          },
+          "reward": -6.6611,
+          "done": false,
+          "info": {
+            "action": "pivot",
+            "bad_decision_penalty": 0.0,
+            "pivot_shift": 0.049,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 9712.83060082435,
+            "team_size": 5,
+            "burn_rate": 6434.887410939056,
+            "market_demand": 0.7232294409107116,
+            "runway": 1.51,
+            "revenue": 5181.755621465241,
+            "product_strength": 0.5922754474695293,
+            "time_step": 12,
+            "constraint_violations": 0
+          },
+          "reward": -5.6954,
+          "done": false,
+          "info": {
+            "action": "marketing_spend",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 7527.738613478521,
+            "team_size": 5,
+            "burn_rate": 6596.916423929711,
+            "market_demand": 0.7547397020659551,
+            "runway": 1.14,
+            "revenue": 5399.795423593227,
+            "product_strength": 0.5922754474695293,
+            "time_step": 13,
+            "constraint_violations": 0
+          },
+          "reward": -7.7566,
+          "done": false,
+          "info": {
+            "action": "marketing_spend",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 6616.979101030295,
+            "team_size": 5,
+            "burn_rate": 6671.3573949562615,
+            "market_demand": 0.7447436817908996,
+            "runway": 0.99,
+            "revenue": 5686.156911481485,
+            "product_strength": 0.5882754474695293,
+            "time_step": 14,
+            "constraint_violations": 0
+          },
+          "reward": -7.1242,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 4441.6675055253345,
+            "team_size": 5,
+            "burn_rate": 6667.849140724527,
+            "market_demand": 0.9131861653543349,
+            "runway": 0.67,
+            "revenue": 5996.045799451301,
+            "product_strength": 0.6863823917367826,
+            "time_step": 15,
+            "constraint_violations": 0
+          },
+          "reward": -6.8598,
+          "done": false,
+          "info": {
+            "action": "pivot",
+            "bad_decision_penalty": 0.0,
+            "pivot_shift": 0.1837,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 3012.8770563352155,
+            "team_size": 5,
+            "burn_rate": 6777.106631965501,
+            "market_demand": 0.9411829291122209,
+            "runway": 0.44,
+            "revenue": 6389.058691534407,
+            "product_strength": 0.6863823917367826,
+            "time_step": 16,
+            "constraint_violations": 0
+          },
+          "reward": -6.1202,
+          "done": false,
+          "info": {
+            "action": "marketing_spend",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 1555.0075207066902,
+            "team_size": 5,
+            "burn_rate": 6762.28324862114,
+            "market_demand": 0.8944642126319877,
+            "runway": 0.23,
+            "revenue": 6819.237096336977,
+            "product_strength": 0.6870670555289092,
+            "time_step": 17,
+            "constraint_violations": 0
+          },
+          "reward": -5.6877,
+          "done": false,
+          "info": {
+            "action": "pivot",
+            "bad_decision_penalty": 0.0,
+            "pivot_shift": -0.0608,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 2675.42595877817,
+            "team_size": 4,
+            "burn_rate": 5933.664157905283,
+            "market_demand": 0.9051064168118269,
+            "runway": 0.45,
+            "revenue": 7082.70168669262,
+            "product_strength": 0.6720670555289092,
+            "time_step": 18,
+            "constraint_violations": 0
+          },
+          "reward": -6.1958,
+          "done": false,
+          "info": {
+            "action": "fire",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 1509.1531016207282,
+            "team_size": 5,
+            "burn_rate": 6738.860496346101,
+            "market_demand": 0.9163546223983551,
+            "runway": 0.22,
+            "revenue": 7617.391300747842,
+            "product_strength": 0.7020670555289092,
+            "time_step": 19,
+            "constraint_violations": 0
+          },
+          "reward": -4.5006,
+          "done": false,
+          "info": {
+            "action": "hire",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 1748.4666528605258,
+            "team_size": 5,
+            "burn_rate": 6831.277853062766,
+            "market_demand": 0.9300258022629835,
+            "runway": 0.26,
+            "revenue": 8128.174047585899,
+            "product_strength": 0.7020670555289092,
+            "time_step": 20,
+            "constraint_violations": 0
+          },
+          "reward": -4.9114,
+          "done": false,
+          "info": {
+            "action": "marketing_spend",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 1427.0056319293108,
+            "team_size": 5,
+            "burn_rate": 6784.0436135512455,
+            "market_demand": 0.9262323677543718,
+            "runway": 0.21,
+            "revenue": 8109.81683213155,
+            "product_strength": 0.6920670555289092,
+            "time_step": 21,
+            "constraint_violations": 1
+          },
+          "reward": -18.2564,
+          "done": false,
+          "info": {
+            "action": "hire",
+            "bad_decision_penalty": 2.0,
+            "constraint_violation": true,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 1296.6106923633542,
+            "team_size": 5,
+            "burn_rate": 6794.099608127062,
+            "market_demand": 0.9065007156570173,
+            "runway": 0.19,
+            "revenue": 8080.6543059146,
+            "product_strength": 0.6820670555289092,
+            "time_step": 22,
+            "constraint_violations": 2
+          },
+          "reward": -22.3913,
+          "done": false,
+          "info": {
+            "action": "hire",
+            "bad_decision_penalty": 2.0,
+            "constraint_violation": true,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 1968.722060845852,
+            "team_size": 5,
+            "burn_rate": 6865.912829549784,
+            "market_demand": 0.883234067097501,
+            "runway": 0.29,
+            "revenue": 8566.21097660956,
+            "product_strength": 0.7170670555289093,
+            "time_step": 23,
+            "constraint_violations": 2
+          },
+          "reward": -13.2443,
+          "done": false,
+          "info": {
+            "action": "build_feature",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 1959.7068287187549,
+            "team_size": 5,
+            "burn_rate": 6903.187202961211,
+            "market_demand": 0.894272649933959,
+            "runway": 0.28,
+            "revenue": 8456.897597422687,
+            "product_strength": 0.7070670555289092,
+            "time_step": 24,
+            "constraint_violations": 3
+          },
+          "reward": -27.4475,
+          "done": true,
+          "info": {
+            "action": "hire",
+            "bad_decision_penalty": 2.0,
+            "constraint_violation": true,
+            "reason": "constraint_breach",
+            "scenario": "standard"
+          }
+        }
+      ]
+    },
+    "trained": {
+      "seed": 19,
+      "total_reward": -67.18840000000002,
+      "steps": 40,
+      "verdict": {
+        "passed": true,
+        "checks": {
+          "survived_x_steps": true,
+          "revenue_gt_burn": true,
+          "no_constraint_violations": true
+        },
+        "summary": "PASS",
+        "final_state": {
+          "funding": 88974.89684058094,
+          "team_size": 2,
+          "burn_rate": 3184.840251135792,
+          "market_demand": 0.05486614873431382,
+          "runway": 27.94,
+          "revenue": 5852.485777142061,
+          "product_strength": 0.37063534441341145,
+          "time_step": 40,
+          "constraint_violations": 0
+        }
+      },
+      "trajectory": [
+        {
+          "state": {
+            "funding": 48753.40341432579,
+            "team_size": 3,
+            "burn_rate": 3718.0699235804623,
+            "market_demand": 0.5606275496080163,
+            "runway": 13.11,
+            "revenue": 2453.403414325788,
+            "product_strength": 0.435,
+            "time_step": 1,
+            "constraint_violations": 0
+          },
+          "reward": -0.7615,
+          "done": false,
+          "info": {
+            "action": "fire",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 46108.65830084243,
+            "team_size": 3,
+            "burn_rate": 3680.3088925581665,
+            "market_demand": 0.6252630808810595,
+            "runway": 12.53,
+            "revenue": 2573.324810097101,
+            "product_strength": 0.433706932585193,
+            "time_step": 2,
+            "constraint_violations": 0
+          },
+          "reward": -2.1694,
+          "done": false,
+          "info": {
+            "action": "pivot",
+            "bad_decision_penalty": 0.0,
+            "pivot_shift": 0.0348,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 45105.48249994161,
+            "team_size": 3,
+            "burn_rate": 3669.413944799858,
+            "market_demand": 0.600927795354993,
+            "runway": 12.29,
+            "revenue": 2677.133091657353,
+            "product_strength": 0.429706932585193,
+            "time_step": 3,
+            "constraint_violations": 0
+          },
+          "reward": -2.3292,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 44163.97231459403,
+            "team_size": 3,
+            "burn_rate": 3658.2389061684503,
+            "market_demand": 0.5770024460156757,
+            "runway": 12.07,
+            "revenue": 2727.90375945228,
+            "product_strength": 0.425706932585193,
+            "time_step": 4,
+            "constraint_violations": 0
+          },
+          "reward": -2.8947,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 41766.89166752145,
+            "team_size": 3,
+            "burn_rate": 3628.6217104957873,
+            "market_demand": 0.5097476316766205,
+            "runway": 11.51,
+            "revenue": 2761.1582590958737,
+            "product_strength": 0.45955493576045686,
+            "time_step": 5,
+            "constraint_violations": 0
+          },
+          "reward": -3.64,
+          "done": false,
+          "info": {
+            "action": "pivot",
+            "bad_decision_penalty": 0.0,
+            "pivot_shift": -0.0494,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 41810.23115853132,
+            "team_size": 2,
+            "burn_rate": 2878.642296681356,
+            "market_demand": 0.5122941872801874,
+            "runway": 14.52,
+            "revenue": 2871.9612015056655,
+            "product_strength": 0.44455493576045685,
+            "time_step": 6,
+            "constraint_violations": 0
+          },
+          "reward": -0.987,
+          "done": false,
+          "info": {
+            "action": "fire",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 41922.80973408899,
+            "team_size": 2,
+            "burn_rate": 2833.5460587750235,
+            "market_demand": 0.5204777593185211,
+            "runway": 14.8,
+            "revenue": 2991.2208722390196,
+            "product_strength": 0.44055493576045685,
+            "time_step": 7,
+            "constraint_violations": 0
+          },
+          "reward": -0.8218,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 42301.780577088866,
+            "team_size": 2,
+            "burn_rate": 2832.955558435495,
+            "market_demand": 0.5241574524019176,
+            "runway": 14.93,
+            "revenue": 3212.5169017748963,
+            "product_strength": 0.43655493576045684,
+            "time_step": 8,
+            "constraint_violations": 0
+          },
+          "reward": 0.3015,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 42764.32458192869,
+            "team_size": 2,
+            "burn_rate": 2910.1895796025433,
+            "market_demand": 0.5236548103020061,
+            "runway": 14.69,
+            "revenue": 3295.4995632753225,
+            "product_strength": 0.43255493576045684,
+            "time_step": 9,
+            "constraint_violations": 0
+          },
+          "reward": -1.3435,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 43381.52792014624,
+            "team_size": 2,
+            "burn_rate": 2993.2768322861752,
+            "market_demand": 0.5336832222679064,
+            "runway": 14.49,
+            "revenue": 3527.392917820091,
+            "product_strength": 0.42855493576045683,
+            "time_step": 10,
+            "constraint_violations": 0
+          },
+          "reward": 0.1616,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 44066.763911645365,
+            "team_size": 2,
+            "burn_rate": 3042.983417888322,
+            "market_demand": 0.5076537000462337,
+            "runway": 14.48,
+            "revenue": 3678.5128237853,
+            "product_strength": 0.42455493576045683,
+            "time_step": 11,
+            "constraint_violations": 0
+          },
+          "reward": -0.8065,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 44807.49413181333,
+            "team_size": 2,
+            "burn_rate": 3003.7649432632575,
+            "market_demand": 0.5157421542960298,
+            "runway": 14.92,
+            "revenue": 3783.713638056291,
+            "product_strength": 0.4205549357604568,
+            "time_step": 12,
+            "constraint_violations": 0
+          },
+          "reward": -1.2488,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 45605.344522329186,
+            "team_size": 2,
+            "burn_rate": 3049.5689218458065,
+            "market_demand": 0.5133211929577345,
+            "runway": 14.95,
+            "revenue": 3801.6153337791184,
+            "product_strength": 0.4165549357604568,
+            "time_step": 13,
+            "constraint_violations": 0
+          },
+          "reward": -2.2824,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 46471.08119093171,
+            "team_size": 2,
+            "burn_rate": 3061.5320919355277,
+            "market_demand": 0.47373848699372323,
+            "runway": 15.18,
+            "revenue": 3915.3055904483313,
+            "product_strength": 0.4125549357604568,
+            "time_step": 14,
+            "constraint_violations": 0
+          },
+          "reward": -1.2479,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 47438.562847299305,
+            "team_size": 2,
+            "burn_rate": 3076.542041247889,
+            "market_demand": 0.4409264113133071,
+            "runway": 15.42,
+            "revenue": 4029.0137483031185,
+            "product_strength": 0.4085549357604568,
+            "time_step": 15,
+            "constraint_violations": 0
+          },
+          "reward": -1.2717,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 48625.02768184374,
+            "team_size": 2,
+            "burn_rate": 3146.4525663874956,
+            "market_demand": 0.42307070275667,
+            "runway": 15.45,
+            "revenue": 4263.00687579232,
+            "product_strength": 0.4045549357604568,
+            "time_step": 16,
+            "constraint_violations": 0
+          },
+          "reward": -0.0604,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 49781.85281906048,
+            "team_size": 2,
+            "burn_rate": 3090.3349202885884,
+            "market_demand": 0.436502786036846,
+            "runway": 16.11,
+            "revenue": 4303.277703604232,
+            "product_strength": 0.4005549357604568,
+            "time_step": 17,
+            "constraint_violations": 0
+          },
+          "reward": -2.1016,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 50994.79560237612,
+            "team_size": 2,
+            "burn_rate": 3136.1195581261836,
+            "market_demand": 0.41909948434415223,
+            "runway": 16.26,
+            "revenue": 4303.277703604232,
+            "product_strength": 0.3965549357604568,
+            "time_step": 18,
+            "constraint_violations": 0
+          },
+          "reward": -2.6178,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 52161.95374785417,
+            "team_size": 2,
+            "burn_rate": 3118.6757394332253,
+            "market_demand": 0.3948757477906946,
+            "runway": 16.73,
+            "revenue": 4303.277703604232,
+            "product_strength": 0.3925549357604568,
+            "time_step": 19,
+            "constraint_violations": 0
+          },
+          "reward": -2.5899,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 51904.05111733545,
+            "team_size": 2,
+            "burn_rate": 3160.2812498828234,
+            "market_demand": 0.3819759351029945,
+            "runway": 16.42,
+            "revenue": 4360.773108914509,
+            "product_strength": 0.45963485529395626,
+            "time_step": 20,
+            "constraint_violations": 0
+          },
+          "reward": -2.024,
+          "done": false,
+          "info": {
+            "action": "pivot",
+            "bad_decision_penalty": 0.0,
+            "pivot_shift": -0.0106,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 51758.725915742,
+            "team_size": 2,
+            "burn_rate": 3115.4775883236416,
+            "market_demand": 0.23226134963749076,
+            "runway": 16.61,
+            "revenue": 4514.956048289361,
+            "product_strength": 0.421476067672814,
+            "time_step": 21,
+            "constraint_violations": 0
+          },
+          "reward": -0.8888,
+          "done": false,
+          "info": {
+            "action": "pivot",
+            "bad_decision_penalty": 0.0,
+            "pivot_shift": -0.161,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 51658.20437570772,
+            "team_size": 2,
+            "burn_rate": 3120.994002052112,
+            "market_demand": 0.08956488866216741,
+            "runway": 16.55,
+            "revenue": 4514.956048289361,
+            "product_strength": 0.4426353444134115,
+            "time_step": 22,
+            "constraint_violations": 0
+          },
+          "reward": -2.5936,
+          "done": false,
+          "info": {
+            "action": "pivot",
+            "bad_decision_penalty": 0.0,
+            "pivot_shift": -0.1521,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 53052.16642194497,
+            "team_size": 2,
+            "burn_rate": 3086.664871808726,
+            "market_demand": 0.0660528812507661,
+            "runway": 17.19,
+            "revenue": 4514.956048289361,
+            "product_strength": 0.4386353444134115,
+            "time_step": 23,
+            "constraint_violations": 0
+          },
+          "reward": -2.5387,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 54511.34026539607,
+            "team_size": 2,
+            "burn_rate": 3043.4982504099353,
+            "market_demand": 0.05,
+            "runway": 17.91,
+            "revenue": 4545.838715259832,
+            "product_strength": 0.4346353444134115,
+            "time_step": 24,
+            "constraint_violations": 0
+          },
+          "reward": -2.1299,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 56169.517236627595,
+            "team_size": 2,
+            "burn_rate": 3086.0947075010804,
+            "market_demand": 0.057220607013852336,
+            "runway": 18.2,
+            "revenue": 4701.67522164146,
+            "product_strength": 0.4306353444134115,
+            "time_step": 25,
+            "constraint_violations": 0
+          },
+          "reward": -0.8235,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 57870.20535886631,
+            "team_size": 2,
+            "burn_rate": 3121.1748654141966,
+            "market_demand": 0.05,
+            "runway": 18.54,
+            "revenue": 4786.782829739793,
+            "product_strength": 0.4266353444134115,
+            "time_step": 26,
+            "constraint_violations": 0
+          },
+          "reward": -1.6577,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 59541.676771974184,
+            "team_size": 2,
+            "burn_rate": 3159.0571909402684,
+            "market_demand": 0.05,
+            "runway": 18.85,
+            "revenue": 4792.646278522075,
+            "product_strength": 0.4226353444134115,
+            "time_step": 27,
+            "constraint_violations": 0
+          },
+          "reward": -2.59,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 61349.89945893665,
+            "team_size": 2,
+            "burn_rate": 3184.4869043075673,
+            "market_demand": 0.07700848920808287,
+            "runway": 19.27,
+            "revenue": 4967.279877902736,
+            "product_strength": 0.4186353444134115,
+            "time_step": 28,
+            "constraint_violations": 0
+          },
+          "reward": -0.7742,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 63315.052708026626,
+            "team_size": 2,
+            "burn_rate": 3156.080897164027,
+            "market_demand": 0.07233955949259174,
+            "runway": 20.06,
+            "revenue": 5149.640153397545,
+            "product_strength": 0.4146353444134115,
+            "time_step": 29,
+            "constraint_violations": 0
+          },
+          "reward": -0.6438,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 65308.61196426015,
+            "team_size": 2,
+            "burn_rate": 3212.2703385628333,
+            "market_demand": 0.06288813262181497,
+            "runway": 20.33,
+            "revenue": 5149.640153397545,
+            "product_strength": 0.4106353444134115,
+            "time_step": 30,
+            "constraint_violations": 0
+          },
+          "reward": -2.7396,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 67245.98177909487,
+            "team_size": 2,
+            "burn_rate": 3181.8327782882347,
+            "market_demand": 0.06210686661296929,
+            "runway": 21.13,
+            "revenue": 5149.640153397545,
+            "product_strength": 0.4066353444134115,
+            "time_step": 31,
+            "constraint_violations": 0
+          },
+          "reward": -2.6909,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 69329.93530125324,
+            "team_size": 2,
+            "burn_rate": 3142.215921699645,
+            "market_demand": 0.053530295028914224,
+            "runway": 22.06,
+            "revenue": 5265.786300446598,
+            "product_strength": 0.4026353444134115,
+            "time_step": 32,
+            "constraint_violations": 0
+          },
+          "reward": -1.3499,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 71497.1603933348,
+            "team_size": 2,
+            "burn_rate": 3121.3957976570073,
+            "market_demand": 0.05,
+            "runway": 22.91,
+            "revenue": 5309.441013781203,
+            "product_strength": 0.3986353444134115,
+            "time_step": 33,
+            "constraint_violations": 0
+          },
+          "reward": -2.114,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 73796.92991007223,
+            "team_size": 2,
+            "burn_rate": 3204.7061038477423,
+            "market_demand": 0.07306868138164335,
+            "runway": 23.03,
+            "revenue": 5421.165314394442,
+            "product_strength": 0.39463534441341147,
+            "time_step": 34,
+            "constraint_violations": 0
+          },
+          "reward": -1.4986,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 76111.53370857972,
+            "team_size": 2,
+            "burn_rate": 3187.5262460341637,
+            "market_demand": 0.07152729651156936,
+            "runway": 23.88,
+            "revenue": 5519.309902355241,
+            "product_strength": 0.39063534441341147,
+            "time_step": 35,
+            "constraint_violations": 0
+          },
+          "reward": -1.6205,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 78463.85469028028,
+            "team_size": 2,
+            "burn_rate": 3199.2945238457933,
+            "market_demand": 0.06180995868084587,
+            "runway": 24.53,
+            "revenue": 5539.847227734723,
+            "product_strength": 0.38663534441341146,
+            "time_step": 36,
+            "constraint_violations": 0
+          },
+          "reward": -2.493,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 80948.72589815986,
+            "team_size": 2,
+            "burn_rate": 3162.457417095505,
+            "market_demand": 0.05,
+            "runway": 25.6,
+            "revenue": 5684.165731725367,
+            "product_strength": 0.38263534441341146,
+            "time_step": 37,
+            "constraint_violations": 0
+          },
+          "reward": -1.0724,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 83638.75425820642,
+            "team_size": 2,
+            "burn_rate": 3179.4005552526514,
+            "market_demand": 0.05,
+            "runway": 26.31,
+            "revenue": 5852.485777142061,
+            "product_strength": 0.37863534441341146,
+            "time_step": 38,
+            "constraint_violations": 0
+          },
+          "reward": -0.8355,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 86311.83948009583,
+            "team_size": 2,
+            "burn_rate": 3189.4284166569537,
+            "market_demand": 0.07211106453880334,
+            "runway": 27.06,
+            "revenue": 5852.485777142061,
+            "product_strength": 0.37463534441341145,
+            "time_step": 39,
+            "constraint_violations": 0
+          },
+          "reward": -2.7031,
+          "done": false,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "ongoing",
+            "scenario": "standard"
+          }
+        },
+        {
+          "state": {
+            "funding": 88974.89684058094,
+            "team_size": 2,
+            "burn_rate": 3184.840251135792,
+            "market_demand": 0.05486614873431382,
+            "runway": 27.94,
+            "revenue": 5852.485777142061,
+            "product_strength": 0.37063534441341145,
+            "time_step": 40,
+            "constraint_violations": 0
+          },
+          "reward": -2.6957,
+          "done": true,
+          "info": {
+            "action": "do_nothing",
+            "bad_decision_penalty": 0.0,
+            "reason": "max_steps_reached",
+            "scenario": "standard"
+          }
+        }
+      ]
+    }
+  },
+  "scenario_results": {
+    "recession": {
+      "baseline": {
+        "scenario": "recession",
+        "scenario_count": 40,
+        "avg_total_reward": -122.34,
+        "min_total_reward": -253.8971,
+        "max_total_reward": -91.2109,
+        "verifier_pass_rate": 0.0,
+        "survival_rate": 0.0,
+        "episode_rewards": [
+          -104.5784,
+          -94.7961,
+          -112.1348,
+          -100.4514,
+          -109.3102,
+          -91.2912,
+          -111.4358,
+          -130.03,
+          -119.5247,
+          -133.432,
+          -110.6652,
+          -102.6486,
+          -102.3454,
+          -126.8498,
+          -151.9521,
+          -91.2109,
+          -128.2073,
+          -124.4045,
+          -125.1609,
+          -150.578,
+          -97.739,
+          -160.0154,
+          -110.4176,
+          -120.3093,
+          -94.8493,
+          -92.6316,
+          -128.8196,
+          -123.044,
+          -111.6542,
+          -93.8421,
+          -104.9232,
+          -253.8971,
+          -121.8034,
+          -113.3902,
+          -192.6814,
+          -105.8109,
+          -115.5329,
+          -128.1289,
+          -159.73,
+          -143.372
+        ]
+      },
+      "trained": {
+        "scenario": "recession",
+        "scenario_count": 40,
+        "avg_total_reward": -181.6072,
+        "min_total_reward": -420.2525,
+        "max_total_reward": -85.653,
+        "verifier_pass_rate": 0.0,
+        "survival_rate": 0.025,
+        "episode_rewards": [
+          -100.5708,
+          -88.2764,
+          -94.8391,
+          -176.8251,
+          -163.8948,
+          -247.4537,
+          -142.3147,
+          -104.7047,
+          -297.5377,
+          -343.6647,
+          -241.4008,
+          -148.2928,
+          -99.8657,
+          -120.8133,
+          -192.1226,
+          -209.7123,
+          -85.653,
+          -182.6781,
+          -177.62,
+          -236.1701,
+          -117.9377,
+          -222.6575,
+          -169.1438,
+          -291.9374,
+          -103.8211,
+          -290.7894,
+          -100.8197,
+          -146.1188,
+          -102.6715,
+          -199.015,
+          -239.9953,
+          -105.5725,
+          -243.1112,
+          -103.5183,
+          -282.395,
+          -95.6362,
+          -219.2275,
+          -159.2461,
+          -196.0095,
+          -420.2525
+        ]
+      },
+      "improvement": {
+        "avg_reward_lift": -59.2672,
+        "survival_rate_lift": 0.025,
+        "verifier_pass_rate_lift": 0.0
+      }
+    },
+    "competition": {
+      "baseline": {
+        "scenario": "competition",
+        "scenario_count": 40,
+        "avg_total_reward": -181.2694,
+        "min_total_reward": -379.8629,
+        "max_total_reward": -88.8279,
+        "verifier_pass_rate": 0.2,
+        "survival_rate": 0.275,
+        "episode_rewards": [
+          -116.8668,
+          -170.0482,
+          -101.6066,
+          -113.9054,
+          -265.2606,
+          -276.3416,
+          -103.4619,
+          -99.406,
+          -205.7852,
+          -342.7059,
+          -129.3042,
+          -264.6226,
+          -100.1651,
+          -272.6748,
+          -132.9988,
+          -88.8279,
+          -153.8103,
+          -116.7552,
+          -127.9908,
+          -280.0031,
+          -114.9825,
+          -128.0157,
+          -129.0588,
+          -379.8629,
+          -228.4578,
+          -134.2824,
+          -136.698,
+          -112.5164,
+          -129.9832,
+          -242.6332,
+          -114.1139,
+          -112.1844,
+          -334.8196,
+          -223.7905,
+          -110.3803,
+          -366.6715,
+          -170.58,
+          -199.214,
+          -136.9036,
+          -283.0843
+        ]
+      },
+      "trained": {
+        "scenario": "competition",
+        "scenario_count": 40,
+        "avg_total_reward": -144.8185,
+        "min_total_reward": -308.6978,
+        "max_total_reward": -18.7035,
+        "verifier_pass_rate": 0.7,
+        "survival_rate": 0.925,
+        "episode_rewards": [
+          -87.5499,
+          -111.6726,
+          -217.6588,
+          -237.8582,
+          -18.7035,
+          -115.8798,
+          -223.3527,
+          -103.3515,
+          -110.0253,
+          -113.3607,
+          -131.1549,
+          -134.3,
+          -102.707,
+          -206.7835,
+          -92.8554,
+          -226.7377,
+          -247.335,
+          -235.0226,
+          -94.1457,
+          -104.4102,
+          -180.5449,
+          -176.8265,
+          -106.4339,
+          -94.2224,
+          -154.2312,
+          -117.894,
+          -308.6978,
+          -198.0381,
+          -243.0412,
+          -110.9967,
+          -146.3337,
+          -151.9576,
+          -102.7294,
+          -105.4241,
+          -68.99,
+          -104.4132,
+          -89.3719,
+          -145.3202,
+          -169.4555,
+          -102.9507
+        ]
+      },
+      "improvement": {
+        "avg_reward_lift": 36.4509,
+        "survival_rate_lift": 0.65,
+        "verifier_pass_rate_lift": 0.5
+      }
+    }
+  }
+}
